@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Lightbulb, MapPin, Trash2, TrafficCone, Waves, X } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, ImagePlus, Lightbulb, MapPin, Trash2, TrafficCone, Waves, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const categories = [
@@ -16,12 +16,25 @@ export default function CivicProblemPage() {
   const [category, setCategory] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [details, setDetails] = useState({ location: '', description: '' });
+  const [image, setImage] = useState(null);
+  const imageInputRef = useRef(null);
   const firstName = user?.fullName?.split(' ')[0] || 'Citizen';
 
   const openReport = (selectedCategory) => {
     setCategory(selectedCategory);
     setSubmitted(false);
     setDetails({ location: '', description: '' });
+    setImage(null);
+  };
+
+  useEffect(() => () => {
+    if (image?.preview) URL.revokeObjectURL(image.preview);
+  }, [image]);
+
+  const chooseImage = (event) => {
+    const file = event.target.files?.[0];
+    if (!file || !['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 5 * 1024 * 1024) return;
+    setImage({ name: file.name, preview: URL.createObjectURL(file) });
   };
 
   const submitReport = (event) => {
@@ -70,6 +83,8 @@ export default function CivicProblemPage() {
             <p className="civic-copy">Add a few details so your local team can respond quickly.</p>
             <label><span><MapPin size={15} /> Location</span><input required value={details.location} onChange={(event) => setDetails({ ...details, location: event.target.value })} placeholder="Street, landmark, or nearby address" autoFocus /></label>
             <label><span>What happened?</span><textarea required rows="4" value={details.description} onChange={(event) => setDetails({ ...details, description: event.target.value })} placeholder="Share helpful details about the issue" /></label>
+            <input ref={imageInputRef} type="file" accept="image/jpeg,image/png,image/webp" onChange={chooseImage} hidden />
+            {image ? <div className="civic-image-preview"><img src={image.preview} alt="Selected issue" /><div><strong>{image.name}</strong><button type="button" onClick={() => { URL.revokeObjectURL(image.preview); setImage(null); if (imageInputRef.current) imageInputRef.current.value = ''; }}>Remove image</button></div></div> : <button type="button" className="civic-image-button" onClick={() => imageInputRef.current?.click()}><ImagePlus size={18} /> Add a photo <small>JPEG, PNG, or WEBP · max 5 MB</small></button>}
             <button className="civic-submit" type="submit">Continue report</button>
           </>}
         </form>

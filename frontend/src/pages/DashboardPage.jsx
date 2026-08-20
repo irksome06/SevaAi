@@ -51,7 +51,6 @@ export const DashboardPage = () => {
       description: t('modCivicDesc'),
       icon: AlertTriangle,
       iconColorClass: 'icon-civic',
-      badgeText: t('phase2Module'),
       onClick: () => navigate('/report-civic-problem'),
       actionText: 'Report a problem',
     },
