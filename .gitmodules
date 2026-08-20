@@ -7,3 +7,6 @@
 [submodule "schemeeligibility"]
 	path = schemeeligibility
 	url = https://github.com/TEJASWINI8376/schemeeligibility.git
+[submodule "frontend/insightful-dashboard"]
+	path = frontend/insightful-dashboard
+	url = https://github.com/TEJASWINI8376/insightful-dashboard.git
