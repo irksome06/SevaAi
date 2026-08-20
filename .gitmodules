@@ -1,0 +1,3 @@
+[submodule "frontend/insightful-dashboard"]
+	path = frontend/insightful-dashboard
+	url = https://github.com/TEJASWINI8376/insightful-dashboard.git
