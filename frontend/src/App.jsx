@@ -11,6 +11,7 @@ import DocumentVaultPage from './pages/DocumentVaultPage';
 import CivicProblemPage from './pages/CivicProblemPage';
 import RtiGeneratorPage from './pages/RtiGeneratorPage';
 import ApplicationTrackerPage from './pages/ApplicationTrackerPage';
+import QuickAccessPage from './pages/QuickAccessPage';
 
 // Root route resolver
 const RootRoute = () => {
@@ -70,6 +71,7 @@ export const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="/quick-access" element={<ProtectedRoute><QuickAccessPage /></ProtectedRoute>} />
 
           {/* Fallback route */}
           <Route path="*" element={<Navigate to="/login" replace />} />
