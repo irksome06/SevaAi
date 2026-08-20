@@ -1,3 +1,6 @@
 [submodule "frontend/sevaai"]
 	path = frontend/sevaai
 	url = https://github.com/TEJASWINI8376/sevaai.git
+[submodule "frontend/loc"]
+	path = frontend/loc
+	url = https://github.com/TEJASWINI8376/loc.git
