@@ -68,7 +68,8 @@ export const DashboardPage = () => {
       description: t('modRtiDesc'),
       icon: HelpCircle,
       iconColorClass: 'icon-rti',
-      badgeText: t('phase2Module'),
+      onClick: () => navigate('/rti-generator'),
+      actionText: 'Create RTI application',
     },
     {
       id: 'schemes',

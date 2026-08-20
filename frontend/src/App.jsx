@@ -9,6 +9,7 @@ import PhoneLoginPage from './pages/PhoneLoginPage';
 import DashboardPage from './pages/DashboardPage';
 import DocumentVaultPage from './pages/DocumentVaultPage';
 import CivicProblemPage from './pages/CivicProblemPage';
+import RtiGeneratorPage from './pages/RtiGeneratorPage';
 
 // Root route resolver
 const RootRoute = () => {
@@ -49,6 +50,14 @@ export const App = () => {
             element={
               <ProtectedRoute>
                 <CivicProblemPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/rti-generator"
+            element={
+              <ProtectedRoute>
+                <RtiGeneratorPage />
               </ProtectedRoute>
             }
           />

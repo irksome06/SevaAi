@@ -6,6 +6,7 @@ import './styles/auth.css';
 import './styles/dashboard.css';
 import './styles/document-vault.css';
 import './styles/civic-problem.css';
+import './styles/rti-generator.css';
 import './styles/ai-widget.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
