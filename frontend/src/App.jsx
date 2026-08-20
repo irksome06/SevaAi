@@ -10,6 +10,9 @@ import DashboardPage from './pages/DashboardPage';
 import DocumentVaultPage from './pages/DocumentVaultPage';
 import CivicProblemPage from './pages/CivicProblemPage';
 import RtiGeneratorPage from './pages/RtiGeneratorPage';
+import ApplicationTrackerPage from './pages/ApplicationTrackerPage';
+import QuickAccessPage from './pages/QuickAccessPage';
+import SchemeEligibilityPage from './pages/SchemeEligibilityPage';
 
 // Root route resolver
 const RootRoute = () => {
@@ -61,6 +64,16 @@ export const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/my-applications"
+            element={
+              <ProtectedRoute>
+                <ApplicationTrackerPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/quick-access" element={<ProtectedRoute><QuickAccessPage /></ProtectedRoute>} />
+          <Route path="/scheme-eligibility" element={<ProtectedRoute><SchemeEligibilityPage /></ProtectedRoute>} />
 
           {/* Fallback route */}
           <Route path="*" element={<Navigate to="/login" replace />} />
