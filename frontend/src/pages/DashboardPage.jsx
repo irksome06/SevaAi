@@ -59,7 +59,8 @@ export const DashboardPage = () => {
       description: t('modSchemesDesc'),
       icon: Search,
       iconColorClass: 'icon-schemes',
-      badgeText: t('phase2Module'),
+      onClick: () => navigate('/scheme-eligibility'),
+      actionText: 'Check eligibility',
     },
     {
       id: 'rti-gen',

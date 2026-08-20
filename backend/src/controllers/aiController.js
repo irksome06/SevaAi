@@ -1,5 +1,7 @@
 const MAX_ATTACHMENTS = 4;
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_HISTORY_MESSAGES = 4;
+const MAX_TEXT_ATTACHMENT_CHARS = 12000;
 const ALLOWED_MIME_TYPES = new Set([
   'application/pdf',
   'text/plain',
@@ -34,7 +36,9 @@ const buildUserMessage = (message, attachments) => {
     // PDFs need a vision/document-capable model or a PDF extraction service.
     if (['text/plain', 'text/csv', 'application/json'].includes(type)) {
       try {
-        const content = Buffer.from(dataUrl.split(',')[1] || '', 'base64').toString('utf8').slice(0, 30000);
+        // Keep local inference responsive. Large text documents can otherwise make
+        // even the small on-device model spend most of its time reading context.
+        const content = Buffer.from(dataUrl.split(',')[1] || '', 'base64').toString('utf8').slice(0, MAX_TEXT_ATTACHMENT_CHARS);
         documentNotes.push(`\n\nAttached file: ${name}\n---\n${content}\n---`);
       } catch {
         documentNotes.push(`\n\nAn attached file named "${name}" could not be read.`);
@@ -74,7 +78,7 @@ exports.chat = async (req, res, next) => {
       }
     }
 
-    const safeHistory = Array.isArray(history) ? history.slice(-8) : [];
+    const safeHistory = Array.isArray(history) ? history.slice(-MAX_HISTORY_MESSAGES) : [];
     const messages = [
       {
         role: 'system',
@@ -89,7 +93,16 @@ exports.chat = async (req, res, next) => {
     const response = await fetch(`${ollamaBaseUrl}/api/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: ollamaModel, messages, stream: false }),
+      body: JSON.stringify({
+        model: ollamaModel,
+        messages,
+        stream: false,
+        // Avoid reloading the downloaded model for each message, limit output to
+        // citizen-friendly answers, and keep the context compact for faster CPU use.
+        keep_alive: '30m',
+        options: { num_ctx: 2048, num_predict: 220, temperature: 0.25 },
+      }),
+      signal: AbortSignal.timeout(60000),
     });
     const result = await response.json();
     if (!response.ok) {
