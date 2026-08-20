@@ -91,8 +91,8 @@ export const DashboardPage = () => {
       description: t('modDocumentsDesc'),
       icon: FolderLock,
       iconColorClass: 'icon-vault',
-      badgeText: t('phase2Module'),
       onClick: () => navigate('/document-vault'),
+      actionText: 'Open My Vault',
     },
   ];
 
@@ -220,6 +220,7 @@ export const DashboardPage = () => {
                 iconColorClass={mod.iconColorClass}
                 badgeText={mod.badgeText}
                 onClick={mod.onClick}
+                actionText={mod.actionText}
               />
             ))}
           </div>

@@ -9,9 +9,9 @@ export const ServiceCard = ({
   badgeText,
   iconColorClass = 'icon-ai',
   onClick,
+  actionText,
 }) => {
   const { t } = useAuth();
-  const displayBadge = badgeText || t('plannedModule');
 
   const cardContent = (
     <>
@@ -20,9 +20,7 @@ export const ServiceCard = ({
           <div className={`card-module-icon ${iconColorClass}`}>
             <Icon size={24} />
           </div>
-          <span className="module-pill-status">
-            {displayBadge}
-          </span>
+          {badgeText && <span className="module-pill-status">{badgeText}</span>}
         </div>
 
         <h4 className="service-card-title">{title}</h4>
@@ -32,7 +30,7 @@ export const ServiceCard = ({
       <div className="service-card-footer">
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
           <Sparkles size={14} color="var(--color-accent-saffron)" />
-          {t('comingSoon')}
+          {actionText || t('comingSoon')}
         </span>
         <ArrowRight size={16} />
       </div>
