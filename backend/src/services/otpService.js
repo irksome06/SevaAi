@@ -18,6 +18,17 @@ class SmsProvider {
 }
 
 /**
+ * Development-only provider. It never sends a network request; the OTP is
+ * returned to the local client so phone-login flows can be tested end-to-end.
+ */
+class MockSmsProvider extends SmsProvider {
+  async sendSms(phone) {
+    console.info(`[MockSMS] OTP generated for ${phone.slice(-4)}.`);
+    return { success: true, messageId: 'mock-otp' };
+  }
+}
+
+/**
  * Fast2SMS Provider (Indian SMS Gateway)
  * https://www.fast2sms.com
  * Supports Indian mobile numbers with Quick or OTP routes
@@ -208,6 +219,13 @@ class TwoFactorSmsProvider extends SmsProvider {
  */
 function getSmsProvider() {
   const providerType = (process.env.SMS_PROVIDER || '').toLowerCase();
+
+  if (providerType === 'mock') {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('Mock OTP is disabled in production. Configure a real SMS provider.');
+    }
+    return new MockSmsProvider();
+  }
   
   if (providerType === 'twilio' || (!providerType && process.env.TWILIO_ACCOUNT_SID)) {
     return new TwilioSmsProvider();
@@ -228,7 +246,7 @@ function getSmsProvider() {
 }
 
 /**
- * OTP Service with Rate Limiting, TTL & Real SMS Delivery
+ * OTP Service with Rate Limiting, TTL & pluggable SMS Delivery
  */
 class OtpService {
   constructor() {
@@ -272,11 +290,13 @@ class OtpService {
       throw new Error('Please provide a valid 10-digit Indian phone number (starting with 6, 7, 8, or 9)');
     }
 
-    const otpCode = this.generateNumericOtp();
+    const providerType = (process.env.SMS_PROVIDER || '').toLowerCase();
+    const useMockOtp = process.env.NODE_ENV === 'test' || providerType === 'mock';
+    const otpCode = useMockOtp ? (process.env.MOCK_OTP_CODE || '123456') : this.generateNumericOtp();
     const expiresAt = new Date(Date.now() + this.OTP_EXPIRATION_MINUTES * 60 * 1000);
 
-    // Deliver first: never create an OTP a user cannot receive. Test mode uses
-    // an in-memory delivery result so automated checks never contact an SMS gateway.
+    // Deliver first: never create an OTP a user cannot receive. Test mode and
+    // the mock provider never contact an external SMS gateway.
     const smsMessage = `Your SevaAI citizen verification code is ${otpCode}. Valid for ${this.OTP_EXPIRATION_MINUTES} minutes. Please do not share this code with anyone.`;
     const sendResult = process.env.NODE_ENV === 'test'
       ? { success: true, messageId: 'test-otp' }
@@ -306,7 +326,7 @@ class OtpService {
       expiresAt: expiresAt,
       expiresInSeconds: this.OTP_EXPIRATION_MINUTES * 60,
       message: 'OTP sent successfully to your mobile number via SMS',
-      ...(process.env.NODE_ENV === 'test' ? { devOtp: otpCode } : {}),
+      ...(useMockOtp ? { devOtp: otpCode } : {}),
     };
   }
 

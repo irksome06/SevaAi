@@ -13,6 +13,7 @@ export const PhoneLoginPage = () => {
   const [step, setStep] = useState('phone');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otpCode, setOtpCode] = useState('');
+  const [mockOtp, setMockOtp] = useState('');
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -69,7 +70,8 @@ export const PhoneLoginPage = () => {
     setError('');
 
     try {
-      await requestPhoneOtp(phoneNumber);
+      const response = await requestPhoneOtp(phoneNumber);
+      setMockOtp(response.devOtp || '');
       setStep('otp');
       setCountdown(30);
       setCanResend(false);
@@ -90,7 +92,8 @@ export const PhoneLoginPage = () => {
     setIsOtpInvalid(false);
 
     try {
-      await requestPhoneOtp(phoneNumber);
+      const response = await requestPhoneOtp(phoneNumber);
+      setMockOtp(response.devOtp || '');
       setCountdown(30);
       setCanResend(false);
       setOtpCode('');
@@ -129,6 +132,7 @@ export const PhoneLoginPage = () => {
   const handleChangePhone = () => {
     setStep('phone');
     setOtpCode('');
+    setMockOtp('');
     setError('');
     setIsOtpInvalid(false);
   };
@@ -237,6 +241,12 @@ export const PhoneLoginPage = () => {
             /* STEP 2: 6-Digit OTP Verification Screen */
             <div>
               <div className="otp-container">
+                {mockOtp && (
+                  <div className="auth-alert auth-alert-info" role="status">
+                    <ShieldCheck size={18} style={{ flexShrink: 0 }} />
+                    <div><strong>Mock OTP:</strong> {mockOtp}</div>
+                  </div>
+                )}
                 <OtpInput
                   value={otpCode}
                   onChange={(val) => {
