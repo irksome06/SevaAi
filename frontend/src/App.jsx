@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import PhoneLoginPage from './pages/PhoneLoginPage';
 import DashboardPage from './pages/DashboardPage';
 import DocumentVaultPage from './pages/DocumentVaultPage';
+import CivicProblemPage from './pages/CivicProblemPage';
 
 // Root route resolver
 const RootRoute = () => {
@@ -40,6 +41,14 @@ export const App = () => {
             element={
               <ProtectedRoute>
                 <DocumentVaultPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/report-civic-problem"
+            element={
+              <ProtectedRoute>
+                <CivicProblemPage />
               </ProtectedRoute>
             }
           />

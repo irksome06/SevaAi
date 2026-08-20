@@ -52,6 +52,8 @@ export const DashboardPage = () => {
       icon: AlertTriangle,
       iconColorClass: 'icon-civic',
       badgeText: t('phase2Module'),
+      onClick: () => navigate('/report-civic-problem'),
+      actionText: 'Report a problem',
     },
     {
       id: 'complaint-gen',
