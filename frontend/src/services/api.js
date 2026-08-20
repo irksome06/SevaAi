@@ -153,3 +153,13 @@ export const trackingApi = {
   create: (payload) => request('/api/tracking', { method: 'POST', body: JSON.stringify(payload) }),
   updateStatus: (trackingId, payload) => request(`/api/tracking/${encodeURIComponent(trackingId)}/status`, { method: 'PATCH', body: JSON.stringify(payload) }),
 };
+
+/** Quick Access directory API */
+export const quickAccessApi = {
+  getAll: (filters = {}) => {
+    const params = new URLSearchParams(Object.entries(filters).filter(([, value]) => value));
+    return request(`/api/quick-access${params.toString() ? `?${params}` : ''}`, { method: 'GET' });
+  },
+  getFilters: () => request('/api/quick-access/filters', { method: 'GET' }),
+  getOne: (id) => request(`/api/quick-access/${encodeURIComponent(id)}`, { method: 'GET' }),
+};

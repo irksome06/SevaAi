@@ -3,6 +3,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const aiRoutes = require('./routes/aiRoutes');
 const trackingRoutes = require('./routes/trackingRoutes');
+const quickAccessRoutes = require('./routes/quickAccessRoutes');
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/tracking', trackingRoutes);
+app.use('/api/quick-access', quickAccessRoutes);
 
 // Catch 404 routes
 app.use((req, res) => {
