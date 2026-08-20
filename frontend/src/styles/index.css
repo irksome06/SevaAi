@@ -1,0 +1,205 @@
+/* ==========================================================================
+   SevaAI Design System & Global Styles
+   Civic Trust Palette: Deep Navy, Saffron Accent, Emerald Success, Clean Slate
+   ========================================================================== */
+
+:root {
+  /* Brand Primary & Accents */
+  --color-primary: #1e3a8a;          /* Deep Bharat/Civic Navy */
+  --color-primary-hover: #1e40af;
+  --color-primary-light: #eff6ff;
+  --color-accent-saffron: #d97706;   /* Saffron Accent */
+  --color-accent-saffron-light: #fffbeb;
+  --color-emerald: #059669;          /* Emerald Verification */
+  --color-emerald-light: #ecfdf5;
+  
+  /* Neutral Dark / Text */
+  --color-text-main: #0f172a;        /* Slate 900 */
+  --color-text-muted: #64748b;       /* Slate 500 */
+  --color-text-light: #94a3b8;       /* Slate 400 */
+  
+  /* Backgrounds & Surfaces */
+  --color-bg-app: #f8fafc;           /* Light Slate Canvas */
+  --color-bg-card: #ffffff;
+  --color-bg-card-glass: rgba(255, 255, 255, 0.88);
+  --color-border: #e2e8f0;           /* Slate 200 */
+  --color-border-focus: #3b82f6;     /* Blue 500 */
+  
+  /* State Colors */
+  --color-danger: #dc2626;           /* Red 600 */
+  --color-danger-light: #fef2f2;
+  --color-warning: #d97706;
+  --color-warning-light: #fffbeb;
+  --color-info: #0284c7;
+  --color-info-light: #f0f9ff;
+  
+  /* Typography */
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Shadows & Elevations */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+  --shadow-glow: 0 0 20px rgba(30, 58, 138, 0.15);
+  
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* CSS Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-app);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+/* Base Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-text-main);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input, select, textarea {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+/* Background Atmosphere Pattern */
+.app-background-pattern {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 10% 10%, rgba(30, 58, 138, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(217, 119, 6, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(5, 150, 105, 0.03) 0%, transparent 50%),
+    #f8fafc;
+  pointer-events: none;
+}
+
+/* Common Utility Classes */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Button Variants */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #172554 0%, #1e3a8a 100%);
+  box-shadow: 0 6px 16px rgba(30, 58, 138, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--color-primary-light);
+  border-color: #bfdbfe;
+  color: var(--color-primary);
+}
+
+.btn-danger-outline {
+  background: transparent;
+  color: var(--color-danger);
+  border: 1px solid #fecaca;
+}
+
+.btn-danger-outline:hover:not(:disabled) {
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* Spinner */
+.spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+.spinner-dark {
+  border-color: rgba(30, 58, 138, 0.2);
+  border-top-color: var(--color-primary);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
