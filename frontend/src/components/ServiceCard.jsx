@@ -8,12 +8,13 @@ export const ServiceCard = ({
   description,
   badgeText,
   iconColorClass = 'icon-ai',
+  onClick,
 }) => {
   const { t } = useAuth();
   const displayBadge = badgeText || t('plannedModule');
 
-  return (
-    <div className="service-module-card">
+  const cardContent = (
+    <>
       <div>
         <div className="card-top-row">
           <div className={`card-module-icon ${iconColorClass}`}>
@@ -35,8 +36,14 @@ export const ServiceCard = ({
         </span>
         <ArrowRight size={16} />
       </div>
-    </div>
+    </>
   );
+
+  if (onClick) {
+    return <button type="button" className="service-module-card service-module-card-button" onClick={onClick}>{cardContent}</button>;
+  }
+
+  return <div className="service-module-card">{cardContent}</div>;
 };
 
 export default ServiceCard;

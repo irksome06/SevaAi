@@ -258,6 +258,18 @@
   overflow: hidden;
 }
 
+.service-module-card-button {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.service-module-card-button:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
 .service-module-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);

@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import PhoneLoginPage from './pages/PhoneLoginPage';
 import DashboardPage from './pages/DashboardPage';
+import DocumentVaultPage from './pages/DocumentVaultPage';
 
 // Root route resolver
 const RootRoute = () => {
@@ -31,6 +32,14 @@ export const App = () => {
             element={
               <ProtectedRoute>
                 <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/document-vault"
+            element={
+              <ProtectedRoute>
+                <DocumentVaultPage />
               </ProtectedRoute>
             }
           />
