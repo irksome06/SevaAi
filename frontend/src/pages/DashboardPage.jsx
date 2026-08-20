@@ -85,7 +85,8 @@ export const DashboardPage = () => {
       description: t('modTrackerDesc'),
       icon: Layers,
       iconColorClass: 'icon-tracker',
-      badgeText: t('phase2Module'),
+      onClick: () => navigate('/my-applications'),
+      actionText: 'View my records',
     },
     {
       id: 'documents',

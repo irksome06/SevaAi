@@ -10,6 +10,7 @@ import DashboardPage from './pages/DashboardPage';
 import DocumentVaultPage from './pages/DocumentVaultPage';
 import CivicProblemPage from './pages/CivicProblemPage';
 import RtiGeneratorPage from './pages/RtiGeneratorPage';
+import ApplicationTrackerPage from './pages/ApplicationTrackerPage';
 
 // Root route resolver
 const RootRoute = () => {
@@ -58,6 +59,14 @@ export const App = () => {
             element={
               <ProtectedRoute>
                 <RtiGeneratorPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-applications"
+            element={
+              <ProtectedRoute>
+                <ApplicationTrackerPage />
               </ProtectedRoute>
             }
           />

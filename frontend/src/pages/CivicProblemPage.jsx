@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, ImagePlus, Lightbulb, MapPin, Trash2, TrafficCone, Waves, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { trackingApi } from '../services/api';
 
 const categories = [
   { label: 'Road Damage', description: 'Potholes, cracked roads, or damaged sidewalks', icon: TrafficCone },
@@ -15,6 +16,8 @@ export default function CivicProblemPage() {
   const { user } = useAuth();
   const [category, setCategory] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submission, setSubmission] = useState(null);
+  const [submitError, setSubmitError] = useState('');
   const [details, setDetails] = useState({ location: '', description: '' });
   const [image, setImage] = useState(null);
   const imageInputRef = useRef(null);
@@ -23,6 +26,8 @@ export default function CivicProblemPage() {
   const openReport = (selectedCategory) => {
     setCategory(selectedCategory);
     setSubmitted(false);
+    setSubmission(null);
+    setSubmitError('');
     setDetails({ location: '', description: '' });
     setImage(null);
   };
@@ -37,9 +42,29 @@ export default function CivicProblemPage() {
     setImage({ name: file.name, preview: URL.createObjectURL(file) });
   };
 
-  const submitReport = (event) => {
+  const submitReport = async (event) => {
     event.preventDefault();
-    setSubmitted(true);
+    setSubmitError('');
+    try {
+      const response = await trackingApi.create({
+        type: 'civic_report',
+        title: `${category.label} report`,
+        category: category.label,
+        status: 'Submitted',
+        sourceModule: 'Report Civic Problem',
+        metadata: {
+          location: details.location,
+          description: details.description,
+          photoAttached: Boolean(image),
+          nextAction: 'Your report has been sent to the relevant ward service team for acknowledgement.',
+        },
+        initialNote: 'Your civic report was submitted and is awaiting acknowledgement.',
+      });
+      setSubmission(response.record);
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(error.message || 'Unable to submit your report. Please try again.');
+    }
   };
 
   return (
@@ -76,7 +101,7 @@ export default function CivicProblemPage() {
       {category && <div className="civic-modal-backdrop" onClick={() => setCategory(null)} role="presentation">
         <form className="civic-modal" onSubmit={submitReport} onClick={(event) => event.stopPropagation()}>
           <button type="button" className="civic-close" onClick={() => setCategory(null)} aria-label="Close report form"><X size={20} /></button>
-          {submitted ? <div className="civic-success"><CheckCircle2 size={42} /><h2>Report ready to submit</h2><p>Your {category.label.toLowerCase()} report has been saved for review. A server submission endpoint can be connected next.</p><button type="button" onClick={() => setCategory(null)}>Done</button></div> : <>
+          {submitted ? <div className="civic-success"><CheckCircle2 size={42} /><h2>Report submitted</h2><p>Your {category.label.toLowerCase()} report is now in My Applications &amp; Reports.</p>{submission?.trackingId && <strong>Tracking ID: {submission.trackingId}</strong>}<button type="button" onClick={() => navigate('/my-applications')}>View my reports</button><button type="button" onClick={() => setCategory(null)}>Done</button></div> : <>
             <div className="civic-modal-icon"><category.icon size={28} /></div>
             <p className="civic-eyebrow">NEW COMMUNITY REPORT</p>
             <h2>Report {category.label.toLowerCase()}</h2>
@@ -85,7 +110,8 @@ export default function CivicProblemPage() {
             <label><span>What happened?</span><textarea required rows="4" value={details.description} onChange={(event) => setDetails({ ...details, description: event.target.value })} placeholder="Share helpful details about the issue" /></label>
             <input ref={imageInputRef} type="file" accept="image/jpeg,image/png,image/webp" onChange={chooseImage} hidden />
             {image ? <div className="civic-image-preview"><img src={image.preview} alt="Selected issue" /><div><strong>{image.name}</strong><button type="button" onClick={() => { URL.revokeObjectURL(image.preview); setImage(null); if (imageInputRef.current) imageInputRef.current.value = ''; }}>Remove image</button></div></div> : <button type="button" className="civic-image-button" onClick={() => imageInputRef.current?.click()}><ImagePlus size={18} /> Add a photo <small>JPEG, PNG, or WEBP · max 5 MB</small></button>}
-            <button className="civic-submit" type="submit">Continue report</button>
+            {submitError && <p role="alert" style={{ color: '#b91c1c', fontSize: '0.85rem' }}>{submitError}</p>}
+            <button className="civic-submit" type="submit">Submit report</button>
           </>}
         </form>
       </div>}

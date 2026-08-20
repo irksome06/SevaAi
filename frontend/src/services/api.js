@@ -140,3 +140,16 @@ export const aiApi = {
     body: JSON.stringify(payload),
   }),
 };
+
+/** Application & Report Tracker API */
+export const trackingApi = {
+  getAll: (filters = {}) => {
+    const params = new URLSearchParams(Object.entries(filters).filter(([, value]) => value));
+    const suffix = params.toString() ? `?${params}` : '';
+    return request(`/api/tracking${suffix}`, { method: 'GET' });
+  },
+  getSummary: () => request('/api/tracking/summary', { method: 'GET' }),
+  getOne: (trackingId) => request(`/api/tracking/${encodeURIComponent(trackingId)}`, { method: 'GET' }),
+  create: (payload) => request('/api/tracking', { method: 'POST', body: JSON.stringify(payload) }),
+  updateStatus: (trackingId, payload) => request(`/api/tracking/${encodeURIComponent(trackingId)}/status`, { method: 'PATCH', body: JSON.stringify(payload) }),
+};
