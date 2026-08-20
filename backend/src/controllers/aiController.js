@@ -58,7 +58,7 @@ exports.chat = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'A message is required.' });
     }
     const ollamaBaseUrl = (process.env.OLLAMA_BASE_URL || 'http://127.0.0.1:11434').replace(/\/$/, '');
-    const ollamaModel = process.env.OLLAMA_MODEL || 'llama3.2';
+    const ollamaModel = process.env.OLLAMA_MODEL || 'llama3.2:1b';
     if (!ollamaModel) {
       return res.status(503).json({
         success: false,
@@ -102,7 +102,7 @@ exports.chat = async (req, res, next) => {
     if (error?.cause?.code === 'ECONNREFUSED') {
       return res.status(503).json({
         success: false,
-        message: 'The free local AI service is not running. Install Ollama, run "ollama pull llama3.2", then start Ollama and restart the backend.',
+        message: 'The free local AI service is not running. Install Ollama, run "ollama pull llama3.2:1b", then start Ollama and restart the backend.',
       });
     }
     next(error);
