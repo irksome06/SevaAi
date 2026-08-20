@@ -188,6 +188,7 @@ const sendOtp = async (req, res) => {
       message: result.message,
       phone: result.phone,
       expiresInSeconds: result.expiresInSeconds,
+      ...(result.devOtp ? { devOtp: result.devOtp } : {}),
     });
   } catch (error) {
     console.error('[SendOtp] Error:', error.message);

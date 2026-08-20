@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
+process.env.NODE_ENV = 'test';
 const app = require('../src/app');
 
 let mongoServer;
@@ -60,6 +61,7 @@ async function runTestSuite() {
     const regShortPass = await apiRequest('/api/auth/register', 'POST', {
       fullName: 'Ramesh Kumar',
       email: 'ramesh@example.com',
+      phone: '9876543210',
       password: '123',
       confirmPassword: '123',
       preferredLanguage: 'hi',
@@ -70,6 +72,7 @@ async function runTestSuite() {
     const regMismatch = await apiRequest('/api/auth/register', 'POST', {
       fullName: 'Ramesh Kumar',
       email: 'ramesh@example.com',
+      phone: '9876543210',
       password: 'StrongPassword123!',
       confirmPassword: 'DifferentPassword456!',
       preferredLanguage: 'hi',
@@ -80,6 +83,7 @@ async function runTestSuite() {
     const regValid = await apiRequest('/api/auth/register', 'POST', {
       fullName: 'Ramesh Kumar',
       email: 'ramesh@example.com',
+      phone: '9876543210',
       password: 'StrongPassword123!',
       confirmPassword: 'StrongPassword123!',
       preferredLanguage: 'hi',
@@ -95,6 +99,7 @@ async function runTestSuite() {
     const regDup = await apiRequest('/api/auth/register', 'POST', {
       fullName: 'Another Ramesh',
       email: 'ramesh@example.com',
+      phone: '9876543211',
       password: 'StrongPassword123!',
       confirmPassword: 'StrongPassword123!',
       preferredLanguage: 'en',

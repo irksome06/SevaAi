@@ -275,10 +275,12 @@ class OtpService {
     const otpCode = this.generateNumericOtp();
     const expiresAt = new Date(Date.now() + this.OTP_EXPIRATION_MINUTES * 60 * 1000);
 
-    // Deliver first: never create an OTP a user cannot receive.
-    const provider = getSmsProvider();
+    // Deliver first: never create an OTP a user cannot receive. Test mode uses
+    // an in-memory delivery result so automated checks never contact an SMS gateway.
     const smsMessage = `Your SevaAI citizen verification code is ${otpCode}. Valid for ${this.OTP_EXPIRATION_MINUTES} minutes. Please do not share this code with anyone.`;
-    const sendResult = await provider.sendSms(formattedPhone, otpCode, smsMessage);
+    const sendResult = process.env.NODE_ENV === 'test'
+      ? { success: true, messageId: 'test-otp' }
+      : await getSmsProvider().sendSms(formattedPhone, otpCode, smsMessage);
 
     if (!sendResult.success) {
       throw new Error(sendResult.error || 'Unable to send OTP. Please try again later.');
@@ -304,6 +306,7 @@ class OtpService {
       expiresAt: expiresAt,
       expiresInSeconds: this.OTP_EXPIRATION_MINUTES * 60,
       message: 'OTP sent successfully to your mobile number via SMS',
+      ...(process.env.NODE_ENV === 'test' ? { devOtp: otpCode } : {}),
     };
   }
 
