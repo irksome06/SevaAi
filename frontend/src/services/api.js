@@ -3,7 +3,11 @@
  * Handles HTTP requests to Express backend with JWT token authorization
  */
 
-const rawBaseUrl = (import.meta.env.VITE_API_URL || '').trim();
+const rawBaseUrl = (
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? 'https://sevaai-48ul.onrender.com' : '')
+).trim();
+
 const API_BASE_URL = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl;
 
 /**

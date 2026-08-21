@@ -18,7 +18,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: CLIENT_URL
-        value: https://sevaai-frontend.onrender.com
+        value: "*"
 
   # Frontend Static Site
   - type: web
@@ -33,4 +33,4 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        value: https://sevaai-backend.onrender.com
+        value: https://sevaai-48ul.onrender.com
