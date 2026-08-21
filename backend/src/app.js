@@ -8,16 +8,37 @@ const schemeEligibilityRoutes = require('./routes/schemeEligibilityRoutes');
 
 const app = express();
 
+// Parse allowed CORS origins from environment
+const rawClientUrls = process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',').map((u) => u.trim().replace(/\/$/, '')) : [];
+const defaultOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://localhost:3000',
+  'http://localhost:4173',
+];
+const allowedOrigins = [...new Set([...rawClientUrls, ...defaultOrigins])];
+
 // Enable CORS for frontend clients
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || [
-      'http://localhost:5173',
-      'http://127.0.0.1:5173',
-      'http://localhost:3000',
-    ],
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. mobile apps, Postman, server-to-server)
+      if (!origin) return callback(null, true);
+      
+      if (
+        process.env.CLIENT_URL === '*' ||
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.onrender.com') ||
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.netlify.app') ||
+        process.env.NODE_ENV !== 'production'
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );

@@ -3,7 +3,8 @@
  * Handles HTTP requests to Express backend with JWT token authorization
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+const rawBaseUrl = (import.meta.env.VITE_API_URL || '').trim();
+const API_BASE_URL = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl;
 
 /**
  * Get stored JWT auth token from localStorage
@@ -42,8 +43,7 @@ async function request(endpoint, options = {}) {
       headers,
     });
 
-    // Vite returns an empty proxy response when the backend is stopped. Parse
-    // defensively so users see the real connection problem instead of a JSON error.
+    // Handle responses defensively
     const rawBody = await response.text();
     let data = {};
     if (rawBody) {
@@ -67,7 +67,9 @@ async function request(endpoint, options = {}) {
   } catch (error) {
     if (error instanceof TypeError && error.message.toLowerCase().includes('fetch')) {
       const connectionError = new Error(
-        'Cannot reach the SevaAI backend. Start it with "npm run dev" (or "npm run dev:mem") in the backend folder.'
+        import.meta.env.PROD
+          ? 'Unable to connect to SevaAI backend. Please check your network or verify the backend service is running.'
+          : 'Cannot reach the SevaAI backend. Start it with "npm run dev" (or "npm run dev:mem") in the backend folder.'
       );
       connectionError.code = 'BACKEND_UNAVAILABLE';
       throw connectionError;
