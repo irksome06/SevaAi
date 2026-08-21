@@ -10,7 +10,8 @@
     "dev:mem": "node src/server-dev-mem.js",
     "test": "node test/test-auth-suite.js",
     "test:tracking": "node test/test-tracking-suite.js",
-    "test:quick-access": "node test/test-quick-access-suite.js"
+    "test:quick-access": "node test/test-quick-access-suite.js",
+    "test:schemes": "node test/test-scheme-eligibility-suite.js"
   },
   "keywords": [
     "sevaai",

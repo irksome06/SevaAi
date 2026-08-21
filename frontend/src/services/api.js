@@ -163,3 +163,11 @@ export const quickAccessApi = {
   getFilters: () => request('/api/quick-access/filters', { method: 'GET' }),
   getOne: (id) => request(`/api/quick-access/${encodeURIComponent(id)}`, { method: 'GET' }),
 };
+
+export const schemeEligibilityApi = {
+  list: (filters = {}) => request(`/api/schemes${new URLSearchParams(Object.entries(filters).filter(([, value]) => value)).toString() ? `?${new URLSearchParams(Object.entries(filters).filter(([, value]) => value))}` : ''}`),
+  getProfile: () => request('/api/schemes/profile'),
+  saveProfile: (profile) => request('/api/schemes/profile', { method: 'PUT', body: JSON.stringify(profile) }),
+  recommendations: () => request('/api/schemes/recommendations'),
+  start: (schemeId) => request(`/api/schemes/${encodeURIComponent(schemeId)}/start`, { method: 'POST' }),
+};

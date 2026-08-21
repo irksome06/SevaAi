@@ -4,6 +4,7 @@ const authRoutes = require('./routes/authRoutes');
 const aiRoutes = require('./routes/aiRoutes');
 const trackingRoutes = require('./routes/trackingRoutes');
 const quickAccessRoutes = require('./routes/quickAccessRoutes');
+const schemeEligibilityRoutes = require('./routes/schemeEligibilityRoutes');
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/tracking', trackingRoutes);
 app.use('/api/quick-access', quickAccessRoutes);
+app.use('/api/schemes', schemeEligibilityRoutes);
 
 // Catch 404 routes
 app.use((req, res) => {
