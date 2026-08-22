@@ -5,25 +5,25 @@
 
 :root {
   /* Brand Primary & Accents */
-  --color-primary: #1e3a8a;          /* Deep Bharat/Civic Navy */
-  --color-primary-hover: #1e40af;
-  --color-primary-light: #eff6ff;
-  --color-accent-saffron: #d97706;   /* Saffron Accent */
-  --color-accent-saffron-light: #fffbeb;
-  --color-emerald: #059669;          /* Emerald Verification */
-  --color-emerald-light: #ecfdf5;
+  --color-primary: #064b86;
+  --color-primary-hover: #04365f;
+  --color-primary-light: #eaf3fa;
+  --color-accent-saffron: #c65d19;
+  --color-accent-saffron-light: #fff4eb;
+  --color-emerald: #167447;
+  --color-emerald-light: #edf8f1;
   
   /* Neutral Dark / Text */
-  --color-text-main: #0f172a;        /* Slate 900 */
-  --color-text-muted: #64748b;       /* Slate 500 */
-  --color-text-light: #94a3b8;       /* Slate 400 */
+  --color-text-main: #172b3a;
+  --color-text-muted: #536575;
+  --color-text-light: #81909c;
   
   /* Backgrounds & Surfaces */
-  --color-bg-app: #f8fafc;           /* Light Slate Canvas */
+  --color-bg-app: #f3f6f8;
   --color-bg-card: #ffffff;
   --color-bg-card-glass: rgba(255, 255, 255, 0.88);
-  --color-border: #e2e8f0;           /* Slate 200 */
-  --color-border-focus: #3b82f6;     /* Blue 500 */
+  --color-border: #d2dce3;
+  --color-border-focus: #0867ad;
   
   /* State Colors */
   --color-danger: #dc2626;           /* Red 600 */
@@ -45,10 +45,10 @@
   --shadow-glow: 0 0 20px rgba(30, 58, 138, 0.15);
   
   /* Border Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 7px;
+  --radius-xl: 8px;
   --radius-full: 9999px;
   
   /* Transitions */
@@ -103,16 +103,35 @@ input, select, textarea {
   font-size: 0.95rem;
 }
 
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid rgba(8, 103, 173, .32);
+  outline-offset: 2px;
+}
+
+/* Shared public-service surface overrides for legacy page modules. */
+.vault-page, .civic-page, .quick-page, .tracker-page, .scheme-page {
+  background: var(--color-bg-app) !important;
+  color: var(--color-text-main);
+}
+
+.vault-hero, .quick-hero, .tracker-hero, .scheme-hero {
+  border-radius: var(--radius-sm) !important;
+  background: var(--color-primary) !important;
+  box-shadow: 0 8px 18px rgba(6, 75, 134, .16) !important;
+}
+
+.vault-upload-card, .vault-documents-section, .quick-directory, .tracker-summary-card, .scheme-panel {
+  border-radius: var(--radius-sm) !important;
+}
+
+.civic-category, .civic-updates { border-radius: var(--radius-sm) !important; }
+
 /* Background Atmosphere Pattern */
 .app-background-pattern {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: 
-    radial-gradient(circle at 10% 10%, rgba(30, 58, 138, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 90% 90%, rgba(217, 119, 6, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(5, 150, 105, 0.03) 0%, transparent 50%),
-    #f8fafc;
+  background: #f3f6f8;
   pointer-events: none;
 }
 
@@ -130,10 +149,11 @@ input, select, textarea {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  min-height: 42px;
+  padding: 0.65rem 1.15rem;
   font-size: 0.95rem;
   font-weight: 600;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
   text-align: center;
 }
@@ -145,13 +165,13 @@ input, select, textarea {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  background: var(--color-primary);
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #172554 0%, #1e3a8a 100%);
+  background: var(--color-primary-hover);
   box-shadow: 0 6px 16px rgba(30, 58, 138, 0.35);
   transform: translateY(-1px);
 }
