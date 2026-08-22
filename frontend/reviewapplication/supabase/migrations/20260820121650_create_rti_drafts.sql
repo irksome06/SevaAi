@@ -35,10 +35,23 @@ CREATE TABLE IF NOT EXISTS public.rti_drafts (
   street text NOT NULL DEFAULT '',
   place text NOT NULL DEFAULT '',
   application_date text NOT NULL DEFAULT '',
+  attachments jsonb NOT NULL DEFAULT '[]'::jsonb,
   status text NOT NULL DEFAULT 'draft',
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
+
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('rti-attachments', 'rti-attachments', false)
+ON CONFLICT (id) DO NOTHING;
+
+DROP POLICY IF EXISTS "shared_rti_attachments_read" ON storage.objects;
+CREATE POLICY "shared_rti_attachments_read" ON storage.objects
+  FOR SELECT TO anon, authenticated USING (bucket_id = 'rti-attachments');
+
+DROP POLICY IF EXISTS "shared_rti_attachments_upload" ON storage.objects;
+CREATE POLICY "shared_rti_attachments_upload" ON storage.objects
+  FOR INSERT TO anon, authenticated WITH CHECK (bucket_id = 'rti-attachments');
 
 ALTER TABLE public.rti_drafts ENABLE ROW LEVEL SECURITY;
 
