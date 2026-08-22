@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, ImagePlus, Lightbulb, MapPin, Trash2, TrafficCone, Waves, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { trackingApi } from '../services/api';
+import { civicApi, trackingApi } from '../services/api';
 
 const categories = [
   { label: 'Road Damage', description: 'Potholes, cracked roads, or damaged sidewalks', icon: TrafficCone },
@@ -17,6 +17,7 @@ export default function CivicProblemPage() {
   const [category, setCategory] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [submission, setSubmission] = useState(null);
+  const [officialRouting, setOfficialRouting] = useState(null);
   const [submitError, setSubmitError] = useState('');
   const [details, setDetails] = useState({ location: '', description: '' });
   const [image, setImage] = useState(null);
@@ -27,6 +28,7 @@ export default function CivicProblemPage() {
     setCategory(selectedCategory);
     setSubmitted(false);
     setSubmission(null);
+    setOfficialRouting(null);
     setSubmitError('');
     setDetails({ location: '', description: '' });
     setImage(null);
@@ -46,6 +48,8 @@ export default function CivicProblemPage() {
     event.preventDefault();
     setSubmitError('');
     try {
+      const routing = await civicApi.getOfficialRouting(category.label);
+      setOfficialRouting(routing);
       const response = await trackingApi.create({
         type: 'civic_report',
         title: `${category.label} report`,
@@ -56,6 +60,8 @@ export default function CivicProblemPage() {
           location: details.location,
           description: details.description,
           photoAttached: Boolean(image),
+          officialAuthority: routing.authority,
+          officialPortal: routing.portal,
           nextAction: 'Your report has been sent to the relevant ward service team for acknowledgement.',
         },
         initialNote: 'Your civic report was submitted and is awaiting acknowledgement.',
@@ -101,7 +107,7 @@ export default function CivicProblemPage() {
       {category && <div className="civic-modal-backdrop" onClick={() => setCategory(null)} role="presentation">
         <form className="civic-modal" onSubmit={submitReport} onClick={(event) => event.stopPropagation()}>
           <button type="button" className="civic-close" onClick={() => setCategory(null)} aria-label="Close report form"><X size={20} /></button>
-          {submitted ? <div className="civic-success"><CheckCircle2 size={42} /><h2>Report submitted</h2><p>Your {category.label.toLowerCase()} report is now in My Applications &amp; Reports.</p>{submission?.trackingId && <strong>Tracking ID: {submission.trackingId}</strong>}<button type="button" onClick={() => navigate('/my-applications')}>View my reports</button><button type="button" onClick={() => setCategory(null)}>Done</button></div> : <>
+          {submitted ? <div className="civic-success"><CheckCircle2 size={42} /><h2>Report submitted</h2><p>Your {category.label.toLowerCase()} report is now in My Applications &amp; Reports.</p>{submission?.trackingId && <strong>Tracking ID: {submission.trackingId}</strong>}{officialRouting && <div className="civic-official-route"><strong>Recommended official channel</strong><span>{officialRouting.authority}</span><a href={officialRouting.portal} target="_blank" rel="noreferrer">Open {officialRouting.label}</a></div>}<button type="button" onClick={() => navigate('/my-applications')}>View my reports</button><button type="button" onClick={() => setCategory(null)}>Done</button></div> : <>
             <div className="civic-modal-icon"><category.icon size={28} /></div>
             <p className="civic-eyebrow">NEW COMMUNITY REPORT</p>
             <h2>Report {category.label.toLowerCase()}</h2>
