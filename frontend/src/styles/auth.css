@@ -1,0 +1,481 @@
+/* ==========================================================================
+   SevaAI Authentication Styles (Login, Register, Phone OTP Flow)
+   ========================================================================== */
+
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+/* Navbar / Top Branding */
+.auth-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto 2rem auto;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.brand-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+}
+
+.brand-emblem {
+  width: 44px;
+  height: 44px;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(30, 58, 138, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.brand-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.brand-title span.saffron-dot {
+  color: var(--color-accent-saffron);
+}
+
+.brand-subtitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Main Auth Container */
+.auth-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(23, 43, 58, .1);
+  padding: 2.25rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast);
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #c65d19 0 33%, #ffffff 33% 66%, #167447 66%);
+}
+
+.auth-card-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.auth-card-header h2 {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
+}
+
+.auth-card-header p {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+/* Tab Switcher (Email Login vs Phone OTP Login) */
+.auth-tabs {
+  display: flex;
+  background: #f1f5f9;
+  padding: 0.3rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.75rem;
+  border: 1px solid var(--color-border);
+}
+
+.auth-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: transparent;
+  border-radius: 2px;
+  transition: all var(--transition-fast);
+}
+
+.auth-tab-btn.active {
+  background: #ffffff;
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-tab-btn:hover:not(.active) {
+  color: var(--color-text-main);
+}
+
+/* Alert Banners */
+.auth-alert {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+.auth-alert-error {
+  background-color: var(--color-danger-light);
+  border: 1px solid #fecaca;
+  color: var(--color-danger);
+}
+
+.auth-alert-success {
+  background-color: var(--color-emerald-light);
+  border: 1px solid #a7f3d0;
+  color: var(--color-emerald);
+}
+
+.auth-alert-info {
+  background-color: var(--color-info-light);
+  border: 1px solid #bae6fd;
+  color: var(--color-info);
+}
+
+.auth-alert-dev {
+  background-color: #fffbeb;
+  border: 1px dashed #f59e0b;
+  color: #b45309;
+}
+
+/* Form Groups & Inputs */
+.form-group {
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin-bottom: 0.4rem;
+}
+
+.form-label span.req {
+  color: var(--color-danger);
+  margin-left: 0.2rem;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon-left {
+  position: absolute;
+  left: 0.95rem;
+  color: var(--color-text-light);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon-right {
+  position: absolute;
+  right: 0.95rem;
+  color: var(--color-text-light);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: transparent;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  background-color: #ffffff;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.form-control.has-left-icon {
+  padding-left: 2.65rem;
+}
+
+.form-control.has-right-icon {
+  padding-right: 2.65rem;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3.5px rgba(59, 130, 246, 0.12);
+}
+
+.form-control.is-invalid {
+  border-color: var(--color-danger);
+  background-color: #fffbfa;
+}
+
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 3.5px rgba(220, 38, 38, 0.12);
+}
+
+.field-error-text {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-danger);
+  font-size: 0.8rem;
+  margin-top: 0.35rem;
+  font-weight: 500;
+}
+
+.field-hint {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  margin-top: 0.3rem;
+}
+
+/* Indian Phone Input Special Box */
+.phone-input-group {
+  display: flex;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.phone-input-group:focus-within {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3.5px rgba(59, 130, 246, 0.12);
+}
+
+.phone-input-group.is-invalid {
+  border-color: var(--color-danger);
+}
+
+.phone-prefix-box {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem 0.95rem;
+  background-color: #f8fafc;
+  border-right: 1.5px solid var(--color-border);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  user-select: none;
+}
+
+.phone-prefix-box span.flag {
+  font-size: 1.1rem;
+}
+
+.phone-input-group input.phone-number-field {
+  flex: 1;
+  border: none;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.phone-input-group input.phone-number-field:focus {
+  outline: none;
+}
+
+/* OTP 6-Box Verification Grid */
+.otp-container {
+  margin: 1.5rem 0;
+}
+
+.otp-boxes-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.otp-box-input {
+  width: 48px;
+  height: 56px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background-color: #ffffff;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.otp-box-input:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+.otp-box-input.filled {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+.otp-box-input.is-invalid {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+.otp-meta-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.88rem;
+}
+
+.otp-countdown-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.otp-resend-btn {
+  background: transparent;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.otp-resend-btn:disabled {
+  color: var(--color-text-light);
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
+.change-phone-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  background: transparent;
+}
+
+.change-phone-link:hover {
+  color: var(--color-primary);
+}
+
+/* Auth Card Footer */
+.auth-card-footer {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.auth-card-footer a {
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+
+/* Security Trust Badges */
+.auth-trust-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.auth-trust-badge svg {
+  color: var(--color-emerald);
+}
+
+/* Multilingual Selector Badge */
+.lang-selector-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.85rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.lang-selector-wrapper select {
+  border: none;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  outline: none;
+  cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 540px) {
+  .auth-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .otp-box-input {
+    width: 40px;
+    height: 48px;
+    font-size: 1.25rem;
+  }
+}

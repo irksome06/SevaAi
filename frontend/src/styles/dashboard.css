@@ -1,0 +1,376 @@
+/* ==========================================================================
+   SevaAI Protected Citizen Dashboard Styles
+   ========================================================================== */
+
+.dashboard-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dashboard Top Navigation */
+.dashboard-navbar {
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 8px rgba(23, 43, 58, .06);
+}
+
+.dashboard-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+  padding: 0.7rem 1.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.nav-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.user-profile-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem 0.7rem 0.25rem 0.25rem;
+  background: #f5f8fa;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  background: var(--color-primary);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.user-info-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.user-name-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.user-role-label {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+/* Dashboard Main Content Area */
+.dashboard-main {
+  flex: 1;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem 1.5rem;
+}
+
+/* Citizen Hero Banner */
+.citizen-hero-banner {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-radius: var(--radius-sm);
+  padding: 2rem 2.25rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(6, 75, 134, .16);
+}
+
+.citizen-hero-banner::after {
+  content: '';
+  position: absolute;
+  right: -50px;
+  top: -50px;
+  width: 250px;
+  height: 250px;
+  background: #c65d19;
+  opacity: .12;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #93c5fd;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.hero-title {
+  font-size: 1.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.hero-description {
+  font-size: 1rem;
+  color: #cbd5e1;
+  max-width: 720px;
+  line-height: 1.6;
+}
+
+/* Profile Status Card */
+.profile-overview-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.profile-stat-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.stat-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-icon-blue {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.stat-icon-emerald {
+  background: var(--color-emerald-light);
+  color: var(--color-emerald);
+}
+
+.stat-icon-amber {
+  background: var(--color-accent-saffron-light);
+  color: var(--color-accent-saffron);
+}
+
+.stat-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.stat-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  word-break: break-all;
+}
+
+.stat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  margin-top: 0.25rem;
+}
+
+.stat-badge-verified {
+  background: var(--color-emerald-light);
+  color: var(--color-emerald);
+}
+
+/* Service Modules Grid Section */
+.section-header {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.section-header h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.section-header p {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Service Module Card */
+.service-module-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 1.35rem;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-module-card-button {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.service-module-card-button:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+.service-module-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: #cbd5e1;
+}
+
+.card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.card-module-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.module-pill-status {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: #f1f5f9;
+  color: var(--color-text-muted);
+}
+
+.service-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
+}
+
+.service-card-desc {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.service-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+  font-size: 0.82rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Colors for Module Icons */
+.icon-civic { background: #fee2e2; color: #dc2626; }
+.icon-ai { background: #e0e7ff; color: #4338ca; }
+.icon-quick-access { background: #fce7f3; color: #be185d; }
+.icon-rti { background: #fef3c7; color: #b45309; }
+.icon-schemes { background: #dcfce7; color: #15803d; }
+.icon-tracker { background: #f3e8ff; color: #7e22ce; }
+.icon-vault { background: #e0f2fe; color: #0369a1; }
+.icon-assistant { background: #ffedd5; color: #c2410c; }
+
+/* Dashboard Footer */
+.dashboard-footer {
+  background: #ffffff;
+  border-top: 1px solid var(--color-border);
+  padding: 1.5rem 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .dashboard-nav-container {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .nav-actions-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .citizen-hero-banner {
+    padding: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
