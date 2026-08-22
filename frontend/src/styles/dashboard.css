@@ -18,6 +18,8 @@
   box-shadow: 0 2px 8px rgba(23, 43, 58, .06);
 }
 
+.dashboard-utility-bar { max-width: none; }
+
 .dashboard-nav-container {
   display: flex;
   align-items: center;

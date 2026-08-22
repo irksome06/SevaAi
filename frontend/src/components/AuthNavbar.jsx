@@ -9,6 +9,10 @@ export const AuthNavbar = () => {
 
   return (
     <header className="auth-header-bar">
+      <div className="gov-utility-bar">
+        <span>Government citizen services</span>
+        <span>Accessible in 13 Indian languages</span>
+      </div>
       <Link to="/" className="brand-logo-group">
         <div className="brand-emblem">
           <Shield size={24} strokeWidth={2.4} />
@@ -24,6 +28,10 @@ export const AuthNavbar = () => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <LanguageSelector />
       </div>
+      <nav className="gov-nav-links" aria-label="Public service navigation">
+        <a href="#services">Services</a>
+        <a href="#help">Help &amp; support</a>
+      </nav>
     </header>
   );
 };

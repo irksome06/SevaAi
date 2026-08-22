@@ -98,7 +98,7 @@ export const translations = {
     modTrackerDesc: 'Track the status and timeline of all submitted civic grievances and welfare applications with real-time updates.',
     modDocumentsTitle: 'My Documents Vault',
     modDocumentsDesc: 'Secure, encrypted citizen vault integrated with DigiLocker standards for Aadhaar, ration card, and income certificates.',
-    modAssistantTitle: 'Multilingual AI Assistant',
+    modAssistantTitle: 'SevaAI AI Assistant',
     modAssistantDesc: '24/7 conversational voice & text AI companion to guide you through public service procedures in 12+ Indian languages.',
 
     // Footer

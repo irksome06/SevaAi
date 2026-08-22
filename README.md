@@ -175,6 +175,7 @@ All API routes are prefixed with `/api`.
 | `POST` | `/auth/verify-otp` | Public | Verify an OTP and authenticate |
 | `GET` | `/auth/me` | Protected | Read the current citizen profile |
 | `POST` | `/ai/chat` | Public | Ask the multilingual assistant |
+| `GET` | `/rti/official-portal` | Public | Return the configured official RTI submission portal |
 | `GET/POST/PATCH` | `/tracking` | Protected | Read and update application tracking records |
 | `GET` | `/quick-access` | Public | Read verified contacts and helplines |
 | `GET/PUT` | `/schemes/profile` | Protected | Save and read eligibility details |

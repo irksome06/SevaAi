@@ -12,6 +12,9 @@
 
 /* Navbar / Top Branding */
 .auth-header-bar {
+  position: relative;
+  flex-wrap: wrap;
+  padding-top: 2.65rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,6 +24,8 @@
   padding: 0.65rem 1rem;
   border-bottom: 1px solid var(--color-border);
 }
+
+.auth-header-bar .gov-utility-bar { position: absolute; top: 0; left: 0; width: 100%; }
 
 .brand-logo-group {
   display: flex;

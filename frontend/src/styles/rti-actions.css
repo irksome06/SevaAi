@@ -1,0 +1,10 @@
+.rti-primary-actions { display: flex; gap: .65rem; }
+.rti-actions .rti-apply { border-color: #176b3a; background: #176b3a; color: #fff; }
+.rti-actions .rti-apply:hover { border-color: #0d542b; background: #0d542b; color: #fff; }
+
+@media (max-width: 700px) {
+  .rti-actions, .rti-primary-actions { flex-direction: column; }
+  .rti-actions > div:first-child { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .rti-actions button { justify-content: center; padding-inline: .5rem; }
+  .rti-primary-actions .rti-primary, .rti-primary-actions .rti-apply { width: 100%; }
+}
