@@ -1,229 +1,228 @@
-# SevaAI — Multilingual AI-Powered Citizen Platform
+# SevaAI
 
-> A comprehensive digital public service platform empowering citizens across India with AI-driven civic problem reporting, grievance letters, RTI assistance, government schemes discovery, application tracking, and encrypted document vault.
+SevaAI is a multilingual citizen-services platform for accessing public-service guidance, reporting civic issues, discovering government schemes, preparing RTI applications, managing documents, and tracking applications.
 
----
+The project combines a React web application with an Express REST API. It is designed for citizens who need clear, actionable guidance without navigating multiple government service websites first.
 
-## 🏗️ Architecture & Tech Stack
+## Contents
 
-- **Frontend**: React 18, Vite, React Router v6, Lucide Icons, Custom Accessible Design System
-- **Backend**: Node.js, Express, Mongoose
-- **Database**: MongoDB
-- **Security & Authentication**:
-  - `bcryptjs` password hashing (salt rounds = 12)
-  - JSON Web Tokens (`jsonwebtoken`)
-  - Real SMS OTP delivery through Twilio, MSG91, 2Factor, or Fast2SMS
-  - Protected API and Frontend routes
+- [Capabilities](#capabilities)
+- [Architecture](#architecture)
+- [Technology](#technology)
+- [Repository structure](#repository-structure)
+- [Run locally](#run-locally)
+- [Configuration](#configuration)
+- [API overview](#api-overview)
+- [Security](#security)
+- [Testing and build](#testing-and-build)
+- [Deployment](#deployment)
 
----
+## Capabilities
 
-## 📁 Project Structure
+- Multilingual authentication with email/password and phone OTP flows
+- AI citizen assistant with text, image, and supported document input
+- Civic complaint drafting for roads, waste, water, drainage, and streetlight issues
+- RTI application generation with applicant details, supporting documents, and PDF-ready output
+- Government scheme discovery and eligibility guidance
+- Application and grievance tracking
+- Local document vault for citizen records
+- Quick access to emergency helplines and verified service contacts
 
+## Architecture
+
+```mermaid
+flowchart LR
+    Citizen[Citizen] --> Browser[React + Vite web app]
+    Browser --> Router[React Router]
+    Browser --> AuthState[AuthContext]
+    Browser --> API[Central API client]
+    API --> Express[Express REST API]
+    Express --> Middleware[Security and auth middleware]
+    Middleware --> Controllers[Feature controllers]
+    Controllers --> Services[Domain services]
+    Controllers --> Mongo[(MongoDB)]
+    Controllers --> AI[AI provider chain]
+    AI --> Gemini[Gemini]
+    AI --> Groq[Groq]
+    AI --> OpenAI[OpenAI-compatible APIs]
+    AI --> Ollama[Local Ollama]
+    AI --> Fallback[Built-in civic knowledge fallback]
+    Browser --> External[Official government portals]
 ```
-SevaAi-1/
+
+### Request flow
+
+1. The browser renders a route and collects citizen input.
+2. The shared API client adds the authorization token and sends a JSON request.
+3. Express routes the request through validation and authentication middleware.
+4. Controllers coordinate domain services and persistence.
+5. AI requests try configured providers in order and fall back to the built-in civic knowledge engine when no provider is available.
+
+## Technology
+
+| Layer | Technology |
+| --- | --- |
+| Web application | React 18, Vite, React Router 6, Lucide React |
+| API | Node.js, Express |
+| Persistence | MongoDB with Mongoose |
+| Authentication | JWT, bcryptjs, phone OTP providers |
+| AI | Gemini, Groq, OpenAI-compatible APIs, or local Ollama |
+| Styling | CSS design tokens and feature-specific styles |
+| Deployment | Render configuration in `render.yaml` |
+
+## Repository structure
+
+```text
+SevaAi-integrated/
 ├── backend/
 │   ├── src/
-│   │   ├── config/
-│   │   │   └── db.js                 # MongoDB connection logic
-│   │   ├── controllers/
-│   │   │   └── authController.js     # Register, Login, OTP, Profile handlers
-│   │   ├── middleware/
-│   │   │   └── authMiddleware.js     # Bearer JWT route guard
-│   │   ├── models/
-│   │   │   ├── User.js               # Citizen user schema
-│   │   │   └── Otp.js                # OTP verification schema with TTL index
-│   │   ├── routes/
-│   │   │   └── authRoutes.js         # REST endpoints for authentication
-│   │   ├── services/
-│   │   │   └── otpService.js         # Modular SMS/OTP provider architecture
-│   │   ├── utils/
-│   │   │   └── tokenUtils.js         # JWT signing & decoding utilities
-│   │   ├── app.js                    # Express app configuration & middlewares
-│   │   └── server.js                 # Server bootstrap & process lifecycle
-│   ├── .env.example                  # Environment configuration template
-│   ├── .gitignore
+│   │   ├── config/          Database configuration
+│   │   ├── controllers/     Request and response orchestration
+│   │   ├── middleware/      Authentication and request guards
+│   │   ├── models/          Mongoose schemas
+│   │   ├── routes/          REST route definitions
+│   │   ├── services/        OTP, tracking, quick access, and eligibility logic
+│   │   ├── utils/            Shared backend utilities
+│   │   ├── app.js           Express application setup
+│   │   └── server.js        Production server bootstrap
+│   ├── test/                Backend test suites
+│   ├── .env.example         Backend configuration template
 │   └── package.json
-│
 ├── frontend/
-│   ├── public/
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── AuthNavbar.jsx        # Civic branding navigation bar
-│   │   │   ├── LanguageSelector.jsx  # Multilingual language switcher (13 languages)
-│   │   │   ├── OtpInput.jsx          # 6-box individual OTP component
-│   │   │   ├── ProtectedRoute.jsx    # Client-side route authentication guard
-│   │   │   └── ServiceCard.jsx       # Dashboard service placeholder card
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx       # Global citizen authentication state
-│   │   ├── pages/
-│   │   │   ├── LoginPage.jsx         # Email + Password login page
-│   │   │   ├── RegisterPage.jsx      # Citizen registration form
-│   │   │   ├── PhoneLoginPage.jsx    # Indian phone (+91) OTP verification page
-│   │   │   └── DashboardPage.jsx     # Protected citizen dashboard
-│   │   ├── services/
-│   │   │   └── api.js                # Centralized Fetch API client
-│   │   ├── styles/
-│   │   │   ├── index.css             # Base design tokens & CSS reset
-│   │   │   ├── auth.css              # Authentication views styling
-│   │   │   └── dashboard.css         # Dashboard layout styling
-│   │   ├── App.jsx                   # React Router routing configuration
-│   │   └── main.jsx                  # React DOM root entrypoint
-│   ├── index.html
-│   ├── vite.config.js
-│   ├── .env.example
-│   ├── .gitignore
+│   │   ├── components/      Reusable UI components
+│   │   ├── context/         Authentication and global state
+│   │   ├── pages/           Route-level screens
+│   │   ├── services/        Centralized API client
+│   │   ├── styles/          Global and feature styles
+│   │   ├── utils/            Shared frontend utilities
+│   │   ├── App.jsx          Application routes
+│   │   └── main.jsx         React entry point
+│   ├── .env.example         Frontend configuration template
 │   └── package.json
-│
-├── .gitignore
+├── render.yaml              Render backend and frontend services
 └── README.md
 ```
 
----
-
-## 🚀 Getting Started
+## Run locally
 
 ### Prerequisites
-- **Node.js**: v18+ or v20+
-- **MongoDB**: Local MongoDB instance (`mongodb://127.0.0.1:27017`) or MongoDB Atlas URI.
 
----
+- Node.js 18 or later
+- npm 9 or later
+- MongoDB locally or a MongoDB Atlas connection string
 
-### 1. Backend Setup
+### Start the backend
 
 ```bash
-# Navigate to backend directory
 cd backend
-
-# Install dependencies
 npm install
-
-# Configure environment variables
-# Copy .env.example to .env and adjust if needed
 cp .env.example .env
-
-# Start backend server in development mode
 npm run dev
 ```
 
-Backend will run on **`http://localhost:5000`**.
+The API starts at `http://localhost:5000`.
 
----
-
-### 2. Frontend Setup
+For development without a local MongoDB installation, use the embedded MongoDB server:
 
 ```bash
-# In a new terminal, navigate to frontend directory
+npm run dev:mem
+```
+
+### Start the frontend
+
+Open a second terminal:
+
+```bash
 cd frontend
-
-# Install dependencies
 npm install
-
-# Start Vite dev server
 npm run dev
 ```
 
-Frontend will run on **`http://localhost:5173`**.
+The web app starts at `http://localhost:5173` and proxies `/api` requests to the backend.
 
----
+## Configuration
 
-## 🔑 Environment Variables
+Copy `backend/.env.example` to `backend/.env` and configure the values required for your environment.
 
-### Backend (`backend/.env`)
-| Variable | Description | Default |
-| :--- | :--- | :--- |
-| `PORT` | Express server port | `5000` |
-| `NODE_ENV` | Environment mode (`development` / `production`) | `development` |
-| `MONGODB_URI` | MongoDB connection URI | `mongodb://127.0.0.1:27017/sevaai` |
-| `JWT_SECRET` | Secret key for signing JWT tokens | `sevaai_super_secret_jwt_key_2025...` |
-| `JWT_EXPIRES_IN` | Token validity duration | `7d` |
-| `SMS_PROVIDER` | Active SMS provider (`twilio`, `msg91`, `twofactor`, `fast2sms`) | Required |
----
+| Variable | Purpose |
+| --- | --- |
+| `PORT` | Express port; defaults to `5000` |
+| `MONGODB_URI` | MongoDB connection string |
+| `JWT_SECRET` | Secret used to sign access tokens |
+| `JWT_EXPIRES_IN` | Token lifetime, for example `7d` |
+| `SMS_PROVIDER` | `mock`, `fast2sms`, `twilio`, `msg91`, or `twofactor` |
+| `GEMINI_API_KEY` | Optional Gemini provider key |
+| `GROQ_API_KEY` | Optional Groq provider key |
+| `OPENAI_API_KEY` | Optional OpenAI-compatible provider key |
+| `OLLAMA_BASE_URL` | Local Ollama URL; defaults to `http://127.0.0.1:11434` |
+| `OLLAMA_MODEL` | Local Ollama model; defaults to `llama3.2:1b` |
 
-## 📡 REST API Reference
+At least one AI provider is recommended for generative answers. When cloud providers and Ollama are unavailable, the API returns structured answers from its built-in civic knowledge engine.
 
-| Method | Endpoint | Access | Description |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/health` | Public | Backend health & uptime check |
-| `POST` | `/api/auth/register` | Public | Register new citizen with email, password & language |
-| `POST` | `/api/auth/login` | Public | Authenticate citizen with email + password |
-| `POST` | `/api/auth/send-otp` | Public | Request 6-digit OTP for Indian phone (`+91`) |
-| `POST` | `/api/auth/verify-otp` | Public | Verify OTP and authenticate/create citizen |
-| `GET` | `/api/auth/me` | Protected | Fetch authenticated citizen profile via Bearer token |
+Never commit `.env` files, API keys, JWT secrets, OTP credentials, or database credentials.
 
----
+## API overview
 
-## 📱 Phone OTP Architecture
+All API routes are prefixed with `/api`.
 
-1. Configure one SMS gateway in `backend/.env` (Twilio is shown in `.env.example`).
-2. The server sends a cryptographically random six-digit code to the supplied mobile number.
-3. Only a SHA-256 hash of the code is saved; the raw OTP is never exposed by the API or stored in MongoDB.
-4. Codes expire after five minutes, are single-use, and are invalidated after five failed attempts.
-# SevaAi
-SevaAI — A multilingual AI-powered citizen platform that simplifies access to public services through smart complaint generation, RTI assistance, government scheme eligibility, application tracking, document management, and voice/text AI assistance.
+| Method | Endpoint | Access | Purpose |
+| --- | --- | --- | --- |
+| `GET` | `/health` | Public | Service health and uptime |
+| `POST` | `/auth/register` | Public | Register a citizen account |
+| `POST` | `/auth/login` | Public | Authenticate with email and password |
+| `POST` | `/auth/send-otp` | Public | Request a phone OTP |
+| `POST` | `/auth/verify-otp` | Public | Verify an OTP and authenticate |
+| `GET` | `/auth/me` | Protected | Read the current citizen profile |
+| `POST` | `/ai/chat` | Public | Ask the multilingual assistant |
+| `GET/POST/PATCH` | `/tracking` | Protected | Read and update application tracking records |
+| `GET` | `/quick-access` | Public | Read verified contacts and helplines |
+| `GET/PUT` | `/schemes/profile` | Protected | Save and read eligibility details |
+| `GET` | `/schemes/recommendations` | Protected | Get scheme recommendations |
 
-## Scheme Eligibility
+Protected requests use:
 
-Scheme Eligibility helps citizens discover government schemes and benefits they may qualify for based on their personal and economic information. Users enter details such as age, gender, state, occupation, income, category, student or farmer status, and other relevant information. The system compares those details with available scheme criteria and displays a personalized list of matching schemes.
+```http
+Authorization: Bearer <jwt-token>
+```
 
-For each scheme, the app shows:
+## Security
 
-- 🟢 **Eligible**: The user's information matches the known eligibility criteria.
-- 🟡 **May Be Eligible**: Some information needs verification or additional documents.
-- 🔴 **Not Eligible**: The user does not meet one or more specified criteria.
+- Passwords are hashed with bcrypt before persistence.
+- Protected routes require a signed JWT bearer token.
+- OTP values are short-lived, single-use, and stored as hashes rather than raw codes.
+- AI requests validate message history, attachment count, file type, and file size.
+- The AI system prompt prevents the assistant from requesting passwords, OTPs, or Aadhaar numbers.
+- Production secrets are supplied through deployment environment variables.
 
-Each result includes:
+## Testing and build
 
-- Scheme benefits
-- Eligibility requirements
-- Documents required
-- Application process
-- Official government application link
+Frontend production build:
 
-The feature also explains why a user is eligible, for example:
+```bash
+cd frontend
+npm run build
+```
 
-- Age requirement is satisfied
-- Income is within the applicable limit
-- The user belongs to the eligible state
-- The user's occupation matches the scheme criteria
-## Civic Complaints
+Backend checks:
 
-Civic Complaints is a citizen-friendly feature that allows users to report local civic problems such as road damage, garbage accumulation, water supply issues, drainage problems, broken streetlights, sewage, public toilets, and other municipal concerns.
+```bash
+cd backend
+npm test
+npm run test:tracking
+npm run test:quick-access
+npm run test:schemes
+```
 
-Users can upload a photo or describe the problem, and the system helps generate a complete, properly structured complaint for submission to the concerned government department or local authority.
+## Deployment
 
-### Key Features
+`render.yaml` defines two services:
 
-- 📸 Upload a photo or video of the civic issue.
-- 📝 Describe the problem in simple language.
-- 📍 Capture the location using GPS or enter it manually.
-- 🏛️ Identify the concerned department based on the complaint type and location.
-- 🤖 Generate a complete complaint report automatically.
-- 📋 Include important details such as:
-	- Complaint category
-	- Problem description
-	- Location
-	- Date and time
-	- Photo evidence
-	- Suggested concerned authority
-- 🔗 Provide the official complaint portal or submission link.
-- 📥 Allow users to download, copy, or share the generated complaint.
-- 🔔 Optionally save the complaint or reference number and track its status.
-# sevaai
+- `sevaai-backend`: Node web service backed by MongoDB
+- `sevaai-frontend`: Vite static site with `/api` configured through `VITE_API_URL`
 
-[![Open in Bolt](https://bolt.new/static/open-in-bolt.svg)](https://bolt.new/~/sb1-ocylvsrb)
+Before deploying, configure `MONGODB_URI`, `JWT_SECRET`, any SMS provider credentials, and at least one production AI provider in the hosting platform. Set the frontend `VITE_API_URL` to the public backend URL and verify `/api/health` after deployment.
 
-## RTI Generator
+## Project status
 
-RTI Generator helps citizens create a properly structured Right to Information (RTI) application without needing to know the legal or formal drafting process. Users enter their question, complaint, or information requirement in simple language, and the system converts it into a clear and formal RTI application.
-
-The feature can:
-
-- 📝 Understand the user's request in simple language.
-- 🏛️ Identify the relevant government department or public authority.
-- 📋 Convert the request into clear, specific RTI questions.
-- 📍 Add applicant and correspondence details.
-- 📄 Generate a complete RTI application in a standard format.
-- 📎 Provide a checklist of supporting documents, where applicable.
-- 💰 Provide guidance regarding the applicable RTI application fee.
-- 🔗 Provide the relevant official RTI or application portal link, where available.
-- 📥 Allow the user to download or copy the generated application.
+SevaAI is an evolving application. Government scheme rules, helpline details, and official portal availability can change; users should verify important submissions against the relevant government authority before acting.

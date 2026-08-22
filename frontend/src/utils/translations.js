@@ -8,7 +8,7 @@ export const translations = {
   en: {
     // Brand & Common
     brandTitle: 'SevaAI',
-    brandSubtitle: 'Citizen Service Platform',
+    brandSubtitle: 'National Citizen Services',
     encryptedBadge: 'Encrypted & Protected Citizen Portal',
     secureProtocolBadge: 'Secure Citizen Registration Protocol',
     authGatewayBadge: 'Encrypted Citizen Authentication Gateway',
@@ -74,7 +74,7 @@ export const translations = {
     // Dashboard Page
     authSuccessTag: 'Authentication Successful • Citizen Session Active',
     namasteGreeting: 'Namaste, {name}! 🙏',
-    dashboardSubtitle: "Welcome to SevaAI, India's AI-powered citizen service portal. Explore our planned public service modules below.",
+    dashboardSubtitle: "Your trusted digital gateway to government services, civic support, and citizen assistance.",
     verifiedCitizen: 'Verified Citizen',
     statFullName: 'Full Name',
     statEmail: 'Registered Email',
@@ -83,7 +83,7 @@ export const translations = {
     statVerification: 'Citizen Verification',
     activeVerified: 'Active & Verified',
     serviceModulesTitle: 'Citizen Service Modules',
-    serviceModulesSubtitle: 'Explore AI-driven public service features scheduled for upcoming releases',
+    serviceModulesSubtitle: 'Access essential public services and manage your requests in one place',
 
     // Service Modules
     modCivicTitle: 'Report Civic Problem',
@@ -102,7 +102,7 @@ export const translations = {
     modAssistantDesc: '24/7 conversational voice & text AI companion to guide you through public service procedures in 12+ Indian languages.',
 
     // Footer
-    footerTitle: 'SevaAI Platform — Multilingual AI-Powered Citizen Services • Hackathon Project',
+    footerTitle: 'SevaAI — Multilingual Digital Citizen Services',
     footerDesc: 'Empowering citizens across Bharat with seamless digital access to public grievances, RTI, and government schemes.',
   },
 
@@ -197,7 +197,7 @@ export const translations = {
     modAssistantTitle: 'बहुभाषी AI सहायक',
     modAssistantDesc: '12+ भारतीय भाषाओं में सार्वजनिक प्रक्रियाओं में आपका मार्गदर्शन करने वाला 24/7 AI सहायक।',
 
-    footerTitle: 'सेवाAI मंच — बहुभाषी AI-संचालित नागरिक सेवाएं • हैकथॉन प्रोजेक्ट',
+    footerTitle: 'सेवाAI — बहुभाषी डिजिटल नागरिक सेवाएं',
     footerDesc: 'भारत के नागरिकों को सार्वजनिक शिकायतों, आरटीआई और सरकारी योजनाओं तक आसान डिजिटल पहुंच प्रदान करना।',
   },
 
