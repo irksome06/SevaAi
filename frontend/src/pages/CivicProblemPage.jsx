@@ -71,7 +71,7 @@ export default function CivicProblemPage() {
     <div className="civic-page">
       <header className="civic-topbar">
         <button type="button" className="civic-back" onClick={() => navigate('/dashboard')}><ArrowLeft size={18} /> Dashboard</button>
-        <strong>CivicLink</strong>
+        <strong>Civic Rights</strong>
         <span>Citizen portal</span>
       </header>
 

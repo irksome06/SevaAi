@@ -147,6 +147,10 @@ export const aiApi = {
   }),
 };
 
+export const rtiApi = {
+  getOfficialPortal: () => request('/api/rti/official-portal', { method: 'GET' }),
+};
+
 /** Application & Report Tracker API */
 export const trackingApi = {
   getAll: (filters = {}) => {

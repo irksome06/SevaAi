@@ -51,7 +51,7 @@ export const DashboardPage = () => {
       icon: AlertTriangle,
       iconColorClass: 'icon-civic',
       onClick: () => navigate('/report-civic-problem'),
-      actionText: 'Report a problem',
+      actionText: 'Select Your Civic Complaint',
     },
     {
       id: 'schemes',
@@ -106,6 +106,10 @@ export const DashboardPage = () => {
 
       {/* Dashboard Top Navbar */}
       <header className="dashboard-navbar">
+        <div className="gov-utility-bar dashboard-utility-bar">
+          <span>Government citizen services</span>
+          <span>Last updated: 22 August 2026</span>
+        </div>
         <div className="dashboard-nav-container">
           <div className="brand-logo-group">
             <div className="brand-emblem">
@@ -120,6 +124,10 @@ export const DashboardPage = () => {
           </div>
 
           <div className="nav-actions-group">
+            <nav className="gov-nav-links" aria-label="Citizen portal navigation">
+              <button type="button" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>Services</button>
+              <button type="button" onClick={() => document.getElementById('support')?.scrollIntoView({ behavior: 'smooth' })}>Support</button>
+            </nav>
             <LanguageSelector />
 
             <div className="user-profile-badge">
@@ -206,7 +214,7 @@ export const DashboardPage = () => {
         </section>
 
         {/* Service Modules Grid */}
-        <section>
+        <section id="services">
           <div className="section-header">
             <div>
               <h3>{t('serviceModulesTitle')}</h3>
@@ -232,7 +240,7 @@ export const DashboardPage = () => {
       </main>
 
       {/* Dashboard Footer */}
-      <footer className="dashboard-footer">
+      <footer className="dashboard-footer" id="support">
         <div className="container">
           <p>
             <strong>{t('footerTitle')}</strong>
