@@ -278,9 +278,8 @@ export default function DashboardFlashcards() {
                     </div>
                     <span className="source-name">{item.source}</span>
                   </div>
-                  <div className="portal-direct-link">
-                    <span>Official Portal</span>
-                    <ExternalLink size={13} />
+                  <div className="portal-direct-link" title="Open portal link" aria-label="Open portal">
+                    <ExternalLink size={14} />
                   </div>
                 </div>
               </a>

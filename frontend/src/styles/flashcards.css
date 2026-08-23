@@ -376,18 +376,24 @@
 }
 
 .portal-direct-link {
-  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
   align-items: center;
-  gap: 0.3rem;
-  font-size: 0.72rem;
-  font-weight: 700;
+  justify-content: center;
   color: var(--color-primary);
   background: #eff6ff;
-  padding: 0.25rem 0.6rem;
-  border-radius: var(--radius-sm);
   border: 1px solid #bfdbfe;
   flex-shrink: 0;
   transition: all var(--transition-fast);
+}
+
+.clickable-flashcard:hover .portal-direct-link {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+  transform: scale(1.08);
 }
 
 /* Skeleton Loading */
