@@ -89,7 +89,7 @@ export const AiAssistantWidget = () => {
   };
 
   return <div className="ai-floating-container">
-    {isOpen && <div className="ai-chat-window ai-chat-window--advanced" role="dialog" aria-label="SevaAI multilingual document assistant">
+    {isOpen && <div className="ai-chat-window ai-chat-window--advanced" role="dialog" aria-label="SevaAI AI Assistant">
       <header className="ai-chat-header"><div className="ai-chat-title-group"><div className="ai-avatar-badge"><Bot size={20} /></div><div className="ai-chat-header-text"><h4>{t('modAssistantTitle')} <Sparkles size={13} color="#fbbf24" /></h4><span className="ai-status-indicator">Multilingual · Images · Documents</span></div></div><button type="button" className="ai-chat-close-btn" onClick={() => setIsOpen(false)} aria-label="Close assistant"><X size={16} /></button></header>
       <main className="ai-messages-body">
         {messages.map((message) => <div className={`ai-message ${message.sender}`} key={message.id}><div className="ai-msg-avatar">{message.sender === 'assistant' ? <Bot size={15} /> : <User size={15} />}</div><div><div className="ai-message-bubble">{message.text}</div>{message.attachments?.length > 0 && <div className="ai-message-attachments">{message.attachments.map((file) => <span key={file.id}><FileText size={12} /> {file.name}</span>)}</div>}{message.sender === 'assistant' && <button type="button" className={`ai-speaker-action-btn ${speakingMsgId === message.id ? 'is-speaking' : ''}`} onClick={() => speak(message)}>{speakingMsgId === message.id ? <VolumeX size={14} /> : <Volume2 size={14} />} {speakingMsgId === message.id ? 'Stop' : 'Listen'}</button>}</div></div>)}

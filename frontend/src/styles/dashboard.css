@@ -21,6 +21,8 @@
   box-shadow: var(--shadow-xs);
 }
 
+.dashboard-utility-bar { max-width: none; }
+
 .dashboard-nav-container {
   display: flex;
   align-items: center;
@@ -169,7 +171,7 @@
   margin-bottom: 2rem;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 18px rgba(6, 75, 134, .16);
 }
 
 .citizen-hero-banner::after {
@@ -347,7 +349,7 @@
 }
 
 .service-module-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
   border-color: var(--color-primary);
 }

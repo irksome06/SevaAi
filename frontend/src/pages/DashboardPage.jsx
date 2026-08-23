@@ -13,11 +13,7 @@ import {
   FolderLock,
   Layers,
   PhoneCall,
-  Search,
-  Sparkles,
-  Award,
-  ExternalLink,
-  Info
+  Search
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import LanguageSelector, { LANGUAGES } from '../components/LanguageSelector';
@@ -57,7 +53,7 @@ export const DashboardPage = () => {
       icon: AlertTriangle,
       iconColorClass: 'icon-civic',
       onClick: () => navigate('/report-civic-problem'),
-      actionText: 'Report a problem',
+      actionText: 'Select Your Civic Complaint',
     },
     {
       id: 'schemes',
@@ -236,7 +232,7 @@ export const DashboardPage = () => {
         <DashboardFlashcards />
 
         {/* Service Modules Section */}
-        <section className="service-modules-section" aria-label="Available Citizen Services">
+        <section className="service-modules-section" id="services" aria-label="Available Citizen Services">
           <div className="section-header">
             <div>
               <h3>{t('serviceModulesTitle')}</h3>
@@ -262,7 +258,7 @@ export const DashboardPage = () => {
       </main>
 
       {/* Dashboard Footer */}
-      <footer className="dashboard-footer">
+      <footer className="dashboard-footer" id="support">
         <div className="container">
           <p>
             <strong>{t('footerTitle')}</strong>

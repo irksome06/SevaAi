@@ -6,6 +6,8 @@ const trackingRoutes = require('./routes/trackingRoutes');
 const quickAccessRoutes = require('./routes/quickAccessRoutes');
 const schemeEligibilityRoutes = require('./routes/schemeEligibilityRoutes');
 const newsRoutes = require('./routes/newsRoutes');
+const rtiRoutes = require('./routes/rtiRoutes');
+const civicRoutes = require('./routes/civicRoutes');
 
 const app = express();
 
@@ -70,13 +72,15 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Mount authentication routes
+// Mount authentication and service routes
 app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/tracking', trackingRoutes);
 app.use('/api/quick-access', quickAccessRoutes);
 app.use('/api/schemes', schemeEligibilityRoutes);
 app.use('/api/news', newsRoutes);
+app.use('/api/rti', rtiRoutes);
+app.use('/api/civic', civicRoutes);
 
 // Catch 404 routes
 app.use((req, res) => {

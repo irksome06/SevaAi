@@ -19,7 +19,7 @@ import {
   Check
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { trackingApi } from '../services/api';
+import { civicApi, trackingApi } from '../services/api';
 import '../styles/civic-problem.css';
 
 const categories = [
@@ -59,6 +59,7 @@ export default function CivicProblemPage() {
   const [category, setCategory] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [submission, setSubmission] = useState(null);
+  const [officialRouting, setOfficialRouting] = useState(null);
   const [submitError, setSubmitError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedId, setCopiedId] = useState(false);
@@ -70,6 +71,7 @@ export default function CivicProblemPage() {
     setCategory(selectedCategory);
     setSubmitted(false);
     setSubmission(null);
+    setOfficialRouting(null);
     setSubmitError('');
     setCopiedId(false);
     setDetails({ location: '', description: '' });
@@ -108,6 +110,8 @@ export default function CivicProblemPage() {
     setSubmitError('');
     setIsSubmitting(true);
     try {
+      const routing = await civicApi?.getOfficialRouting ? await civicApi.getOfficialRouting(category.label) : { authority: 'Local Municipal Corporation', portal: 'https://cpgrams.nic.in', label: 'CPGRAMS' };
+      setOfficialRouting(routing);
       const response = await trackingApi.create({
         type: 'civic_report',
         title: `${category.label} report`,
@@ -118,6 +122,8 @@ export default function CivicProblemPage() {
           location: details.location,
           description: details.description,
           photoAttached: Boolean(image),
+          officialAuthority: routing?.authority || 'Local Municipal Corporation',
+          officialPortal: routing?.portal || 'https://cpgrams.nic.in',
           nextAction: 'Your report has been sent to the relevant ward service team for acknowledgement.',
         },
         initialNote: 'Your civic report was submitted and is awaiting acknowledgement.',
@@ -325,7 +331,13 @@ export default function CivicProblemPage() {
                   </div>
                 )}
 
-                <div className="success-actions-group">
+                {officialRouting && (
+                  <div style={{ marginTop: '1rem', padding: '0.75rem 1rem', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0', textAlign: 'left', fontSize: '0.82rem' }}>
+                    <strong>Official Channel:</strong> {officialRouting.authority}
+                  </div>
+                )}
+
+                <div className="success-actions-group" style={{ marginTop: '1.25rem' }}>
                   <button
                     type="button"
                     className="btn btn-primary btn-block"

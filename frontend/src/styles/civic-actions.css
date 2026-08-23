@@ -1,0 +1,5 @@
+.civic-official-route { display: grid; gap: .35rem; margin: 1.1rem 0; padding: .9rem 1rem; border: 1px solid #b7d8c1; border-left: 4px solid #176b3a; background: #f3faf5; color: #254333; text-align: left; }
+.civic-official-route strong { color: #176b3a; font-size: .85rem; }
+.civic-official-route span { color: #536575; font-size: .82rem; line-height: 1.4; }
+.civic-official-route a { width: fit-content; color: #064b86; font-size: .82rem; font-weight: 800; text-decoration: underline; }
+.civic-official-route a:hover { color: #04365f; }

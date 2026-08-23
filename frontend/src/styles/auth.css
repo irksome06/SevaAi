@@ -13,6 +13,9 @@
 
 /* Navbar / Top Branding */
 .auth-header-bar {
+  position: relative;
+  flex-wrap: wrap;
+  padding-top: 2.65rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -58,7 +61,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #d97706 0%, #1e3a8a 50%, #059669 100%);
+  background: linear-gradient(90deg, #c65d19 0 33%, #ffffff 33% 66%, #167447 66%);
 }
 
 .auth-card-header {
@@ -85,7 +88,7 @@
   display: flex;
   background: #f1f5f9;
   padding: 0.3rem;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   margin-bottom: 1.75rem;
   border: 1px solid var(--color-border);
 }
@@ -101,7 +104,7 @@
   font-weight: 700;
   color: var(--color-text-muted);
   background: transparent;
-  border-radius: var(--radius-sm);
+  border-radius: 2px;
   transition: all var(--transition-fast);
   cursor: pointer;
 }

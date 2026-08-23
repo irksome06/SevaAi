@@ -30,7 +30,7 @@
   --color-text-light: #94a3b8;       /* Slate 400 */
 
   /* Backgrounds & Surfaces */
-  --color-bg-app: #f8fafc;           /* Light Slate Canvas */
+  --color-bg-app: #f3f6f8;
   --color-bg-card: #ffffff;
   --color-bg-card-glass: rgba(255, 255, 255, 0.94);
   --color-bg-subtle: #f1f5f9;
@@ -143,6 +143,11 @@ input, select, textarea {
   width: 100%;
 }
 
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid rgba(8, 103, 173, .32);
+  outline-offset: 2px;
+}
+
 /* Background Atmosphere Pattern */
 .app-background-pattern {
   position: fixed;
@@ -173,7 +178,7 @@ input, select, textarea {
   padding: 0.7rem 1.35rem;
   font-size: 0.92rem;
   font-weight: 600;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
   text-align: center;
   border: 1px solid transparent;
@@ -188,7 +193,7 @@ input, select, textarea {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  background: var(--color-primary);
   color: #ffffff;
   border: 1px solid #1e3a8a;
   box-shadow: var(--shadow-sm);
