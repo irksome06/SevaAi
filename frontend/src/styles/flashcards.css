@@ -1,11 +1,15 @@
 /* ==========================================================================
    SevaAI Dashboard Real-Time News Flashcards Styles
    GovTech Aesthetic: Clean White Cards, Live Pulse Indicator, Horizontal Carousel
+   Fully Responsive for Mobile, Tablet, Laptop & Desktop Viewports
    ========================================================================== */
 
 .dashboard-flashcards-section {
-  margin: 2.25rem 0 2.5rem;
+  margin: 2rem 0 2.5rem;
   background: transparent;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 /* Topbar Header */
@@ -14,30 +18,44 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 1rem;
-  margin-bottom: 1.15rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.flashcards-title-wrap {
+  min-width: 0;
+  flex: 1;
 }
 
 .flashcards-title-wrap h2 {
-  font-size: 1.35rem;
+  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
   font-weight: 800;
   color: var(--color-text-main);
   letter-spacing: -0.02em;
-  margin: 0.2rem 0 0;
+  margin: 0.25rem 0 0;
+  line-height: 1.3;
 }
 
 .live-pulse-indicator {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #dc2626;
   background: #fef2f2;
   padding: 0.2rem 0.6rem;
   border-radius: var(--radius-full);
   border: 1px solid #fecaca;
+  max-width: 100%;
+}
+
+.live-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pulse-dot {
@@ -47,6 +65,7 @@
   border-radius: 50%;
   box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
   animation: pulse-live 1.5s infinite;
+  flex-shrink: 0;
 }
 
 @keyframes pulse-live {
@@ -69,6 +88,7 @@
   display: flex;
   gap: 0.45rem;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .nav-arrow-btn {
@@ -101,6 +121,9 @@
   padding-bottom: 0.65rem;
   margin-bottom: 1.15rem;
   scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  max-width: 100%;
 }
 
 .flashcards-filter-pills::-webkit-scrollbar {
@@ -121,6 +144,7 @@
   cursor: pointer;
   white-space: nowrap;
   transition: all var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .filter-pill-btn:hover {
@@ -139,6 +163,8 @@
 /* Flashcards Track / Horizontal Slider */
 .flashcards-carousel-container {
   position: relative;
+  width: 100%;
+  max-width: 100%;
 }
 
 .flashcards-track {
@@ -149,10 +175,13 @@
   padding: 0.35rem 0.15rem 1rem;
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 transparent;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  max-width: 100%;
 }
 
 .flashcards-track::-webkit-scrollbar {
-  height: 6px;
+  height: 5px;
 }
 
 .flashcards-track::-webkit-scrollbar-thumb {
@@ -243,7 +272,12 @@
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   z-index: 2;
+  color: #ffffff;
 }
+
+.badge-scheme { background: rgba(37, 99, 235, 0.9); }
+.badge-civic { background: rgba(234, 88, 12, 0.9); }
+.badge-rti { background: rgba(126, 34, 206, 0.9); }
 
 .flashcard-item-card::before {
   content: '';
@@ -352,6 +386,7 @@
   gap: 0.4rem;
   overflow: hidden;
   flex: 1;
+  min-width: 0;
 }
 
 .source-emblem {
@@ -400,6 +435,8 @@
 .flashcards-loading-skeleton {
   display: flex;
   gap: 1.25rem;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .skeleton-card {
@@ -424,18 +461,41 @@
   border: 1.5px dashed var(--color-border);
   color: var(--color-text-muted);
   font-size: 0.9rem;
+  width: 100%;
 }
 
-/* Responsive */
-@media (max-width: 640px) {
-  .flashcard-item-card {
-    flex: 0 0 290px;
-    padding: 1.2rem;
+/* Responsive Media Queries */
+@media (max-width: 680px) {
+  .dashboard-flashcards-section {
+    margin: 1.5rem 0 2rem;
   }
 
-  .flashcards-topbar {
-    flex-direction: column;
-    align-items: flex-start;
+  .flashcard-item-card {
+    flex: 0 0 min(300px, calc(100vw - 2.5rem));
+    max-width: calc(100vw - 2.5rem);
+  }
+
+  .flashcard-image-wrap {
+    height: 140px;
+  }
+
+  .flashcard-header {
+    padding: 0.75rem 1rem 0.25rem;
+  }
+
+  .flashcard-body {
+    padding: 0 1rem;
+  }
+
+  .flashcard-source-row {
+    padding: 0.65rem 1rem 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .flashcard-item-card {
+    flex: 0 0 calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
   }
 
   .flashcards-nav-controls {

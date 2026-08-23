@@ -1,17 +1,21 @@
 /* ==========================================================================
    SevaAI Protected Citizen Dashboard Styles
    GovTech Aesthetic: Clean Slate, Ashoka Navy, High-contrast Badges, Clear Cards
+   Fully Responsive for Mobile, Tablet, Laptop & Desktop Viewports
    ========================================================================== */
 
 .dashboard-layout {
   min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
 }
 
 /* Dashboard Top Navigation */
 .dashboard-navbar {
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
@@ -19,9 +23,8 @@
   top: 0;
   z-index: 50;
   box-shadow: var(--shadow-xs);
+  width: 100%;
 }
-
-.dashboard-utility-bar { max-width: none; }
 
 .dashboard-nav-container {
   display: flex;
@@ -29,7 +32,9 @@
   justify-content: space-between;
   padding: 0.85rem 1.5rem;
   max-width: 1240px;
+  width: 100%;
   margin: 0 auto;
+  gap: 1rem;
 }
 
 .brand-logo-group {
@@ -37,6 +42,7 @@
   align-items: center;
   gap: 0.85rem;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .brand-emblem {
@@ -50,6 +56,7 @@
   color: #ffffff;
   box-shadow: var(--shadow-sm);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
 }
 
 .brand-title {
@@ -77,7 +84,8 @@
 .nav-actions-group {
   display: flex;
   align-items: center;
-  gap: 1.15rem;
+  gap: 0.85rem;
+  flex-wrap: nowrap;
 }
 
 .user-profile-badge {
@@ -89,6 +97,7 @@
   border-radius: var(--radius-full);
   border: 1px solid var(--color-border);
   transition: all var(--transition-fast);
+  max-width: 220px;
 }
 
 .interactive-profile-badge {
@@ -133,24 +142,30 @@
   display: flex;
   flex-direction: column;
   line-height: 1.15;
+  overflow: hidden;
 }
 
 .user-name-label {
   font-size: 0.82rem;
   font-weight: 700;
   color: var(--color-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-role-label {
   font-size: 0.68rem;
   color: var(--color-emerald);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .btn-sm-logout {
   padding: 0.42rem 0.85rem;
   font-size: 0.82rem;
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 /* Dashboard Main Content Area */
@@ -159,7 +174,7 @@
   max-width: 1240px;
   width: 100%;
   margin: 0 auto;
-  padding: 2.25rem 1.5rem 4.5rem 1.5rem;
+  padding: 2rem 1.5rem 4rem 1.5rem;
 }
 
 /* Citizen Hero Banner */
@@ -167,11 +182,12 @@
   background: linear-gradient(135deg, #0f233a 0%, #1e3a8a 70%, #1e293b 100%);
   color: #ffffff;
   border-radius: var(--radius-xl);
-  padding: 2.5rem;
+  padding: 2.25rem 2.5rem;
   margin-bottom: 2rem;
   position: relative;
   overflow: hidden;
   box-shadow: 0 8px 18px rgba(6, 75, 134, .16);
+  width: 100%;
 }
 
 .citizen-hero-banner::after {
@@ -197,21 +213,23 @@
   font-size: 0.76rem;
   font-weight: 700;
   color: #93c5fd;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  max-width: 100%;
 }
 
 .hero-title {
-  font-size: 2.1rem;
+  font-size: clamp(1.45rem, 3.5vw, 2.1rem);
   font-weight: 800;
   color: #ffffff;
   margin-bottom: 0.55rem;
   letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 
 .hero-description {
-  font-size: 1rem;
+  font-size: clamp(0.88rem, 1.8vw, 1rem);
   color: #cbd5e1;
   max-width: 740px;
   line-height: 1.6;
@@ -223,17 +241,19 @@
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 1.35rem 1.6rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.25rem;
   box-shadow: var(--shadow-sm);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 1.25rem;
+  width: 100%;
 }
 
 .profile-stat-item {
   display: flex;
   align-items: flex-start;
   gap: 0.95rem;
+  min-width: 0;
 }
 
 .stat-icon-wrapper {
@@ -267,6 +287,8 @@
 .stat-details {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  flex: 1;
 }
 
 .stat-label {
@@ -283,6 +305,8 @@
   font-weight: 700;
   color: var(--color-text-main);
   word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .stat-badge {
@@ -294,6 +318,7 @@
   padding: 0.15rem 0.55rem;
   border-radius: var(--radius-full);
   margin-top: 0.25rem;
+  width: fit-content;
 }
 
 .stat-badge-verified {
@@ -303,15 +328,20 @@
 }
 
 /* Service Modules Grid Section */
+.service-modules-section {
+  width: 100%;
+}
+
 .section-header {
   margin-bottom: 1.35rem;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .section-header h3 {
-  font-size: 1.35rem;
+  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
   font-weight: 700;
   color: var(--color-text-main);
   margin-bottom: 0.2rem;
@@ -324,8 +354,9 @@
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 1.35rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 1.25rem;
+  width: 100%;
 }
 
 /* Service Module Card */
@@ -333,7 +364,7 @@
   background: #ffffff;
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 1.65rem;
+  padding: 1.5rem;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
   display: flex;
@@ -341,6 +372,7 @@
   justify-content: space-between;
   position: relative;
   text-align: left;
+  width: 100%;
 }
 
 .service-module-card-button {
@@ -375,6 +407,7 @@
   align-items: center;
   justify-content: center;
   transition: transform var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .service-module-card:hover .card-module-icon {
@@ -398,13 +431,14 @@
   font-weight: 700;
   color: var(--color-text-main);
   margin-bottom: 0.45rem;
+  line-height: 1.35;
 }
 
 .service-card-desc {
   font-size: 0.86rem;
   color: var(--color-text-muted);
   line-height: 1.5;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.35rem;
   flex: 1;
 }
 
@@ -430,6 +464,7 @@
   align-items: center;
   justify-content: center;
   transition: transform var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .service-module-card:hover .service-action-arrow {
@@ -454,6 +489,7 @@
   font-size: 0.85rem;
   color: var(--color-text-muted);
   margin-top: auto;
+  width: 100%;
 }
 
 .footer-subtext {
@@ -462,40 +498,98 @@
   color: var(--color-text-light);
 }
 
-/* Responsive adjustments */
-@media (max-width: 860px) {
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+/* Tablet (Landscape & Portrait) */
+@media (max-width: 900px) {
   .dashboard-nav-container {
-    flex-wrap: wrap;
-    gap: 1rem;
+    padding: 0.75rem 1.25rem;
   }
 
-  .nav-actions-group {
-    width: 100%;
-    justify-content: space-between;
+  .dashboard-main {
+    padding: 1.75rem 1.25rem 3.5rem 1.25rem;
+  }
+
+  .profile-overview-card {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 600px) {
+/* Mobile & Small Tablets */
+@media (max-width: 680px) {
+  .dashboard-nav-container {
+    padding: 0.65rem 1rem;
+    gap: 0.65rem;
+  }
+
   .dashboard-main {
-    padding: 1.5rem 1rem 3.5rem 1rem;
+    padding: 1.25rem 1rem 3rem 1rem;
+  }
+
+  .brand-emblem {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-title {
+    font-size: 1.15rem;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .user-info-text {
+    display: none;
+  }
+
+  .user-profile-badge {
+    padding: 0.25rem;
+    border-radius: 50%;
   }
 
   .citizen-hero-banner {
-    padding: 1.6rem 1.25rem;
-  }
-
-  .hero-title {
-    font-size: 1.55rem;
+    padding: 1.5rem 1.25rem;
+    border-radius: var(--radius-lg);
   }
 
   .profile-overview-card {
     grid-template-columns: 1fr;
     gap: 1rem;
-    padding: 1.2rem;
+    padding: 1.15rem;
   }
 
   .services-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+}
+
+/* Extra Small Mobile Viewports (< 400px) */
+@media (max-width: 400px) {
+  .dashboard-nav-container {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .dashboard-main {
+    padding: 1rem 0.75rem 2.5rem 0.75rem;
+  }
+
+  .nav-actions-group {
+    gap: 0.45rem;
+  }
+
+  .btn-sm-logout span {
+    display: none;
+  }
+
+  .btn-sm-logout {
+    padding: 0.4rem 0.55rem;
   }
 }

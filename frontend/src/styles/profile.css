@@ -1,10 +1,14 @@
 /* ==========================================================================
    SevaAI Citizen Profile Styles
    GovTech Aesthetic: Clean Identity Cards, Avatar Uploader, Structured Fields
+   Fully Responsive for Mobile, Tablet, Laptop & Desktop Viewports
    ========================================================================== */
 
 .profile-page-layout {
   min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
   color: var(--color-text-main);
   display: flex;
   flex-direction: column;
@@ -12,25 +16,27 @@
 
 /* Navbar */
 .profile-navbar {
-  height: 68px;
-  background: rgba(255, 255, 255, 0.96);
+  min-height: 64px;
+  background: rgba(255, 255, 255, 0.98);
   border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
   z-index: 30;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  width: 100%;
 }
 
 .profile-nav-inner {
   max-width: 1100px;
+  width: 100%;
   height: 100%;
-  padding: 0 1.5rem;
+  padding: 0.65rem 1.5rem;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .profile-back-btn {
@@ -44,6 +50,7 @@
   padding: 0.4rem 0.75rem;
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .profile-back-btn:hover {
@@ -54,6 +61,7 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
+  overflow: hidden;
 }
 
 .profile-brand-emblem {
@@ -65,6 +73,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .profile-nav-brand strong {
@@ -72,6 +81,7 @@
   font-size: 0.95rem;
   color: var(--color-primary);
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .profile-nav-brand span {
@@ -81,6 +91,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .profile-status-pill {
@@ -94,6 +105,8 @@
   border-radius: var(--radius-full);
   font-size: 0.78rem;
   font-weight: 700;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* Main Container */
@@ -101,7 +114,7 @@
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
-  padding: 2.25rem 1.5rem 4.5rem;
+  padding: 2rem 1.5rem 4rem;
   flex: 1;
 }
 
@@ -118,6 +131,7 @@
   position: relative;
   overflow: hidden;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .profile-hero-card::after {
@@ -141,8 +155,8 @@
 }
 
 .profile-avatar-circle {
-  width: 105px;
-  height: 105px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   border: 3.5px solid #ffffff;
   box-shadow: var(--shadow-md);
@@ -160,7 +174,7 @@
 }
 
 .profile-avatar-placeholder {
-  font-size: 2.3rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: #ffffff;
   background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
@@ -176,6 +190,8 @@
   display: flex;
   gap: 0.45rem;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn-avatar-upload {
@@ -191,6 +207,7 @@
   border: 1px solid rgba(255, 255, 255, 0.35);
   cursor: pointer;
   transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
 .btn-avatar-upload:hover {
@@ -210,6 +227,7 @@
   border: 1px solid rgba(239, 68, 68, 0.4);
   cursor: pointer;
   transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
 .btn-avatar-remove:hover {
@@ -218,6 +236,7 @@
 
 .profile-hero-details {
   flex: 1;
+  min-width: 0;
 }
 
 .hero-kicker-row {
@@ -225,6 +244,7 @@
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.4rem;
+  flex-wrap: wrap;
 }
 
 .citizen-id-badge {
@@ -245,15 +265,16 @@
 }
 
 .profile-hero-details h1 {
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
   font-weight: 800;
   margin: 0.25rem 0 0.45rem;
   letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 
 .profile-hero-subtitle {
   color: #e0f2fe;
-  font-size: 0.92rem;
+  font-size: clamp(0.85rem, 1.8vw, 0.95rem);
   line-height: 1.5;
   max-width: 620px;
   margin: 0;
@@ -261,15 +282,16 @@
 
 /* Alert Notifications */
 .profile-alert {
-  padding: 0.95rem 1.25rem;
+  padding: 0.85rem 1.15rem;
   border-radius: var(--radius-md);
   font-size: 0.88rem;
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
   font-weight: 600;
   animation: slide-down 200ms ease;
+  width: 100%;
 }
 
 @keyframes slide-down {
@@ -299,7 +321,8 @@
 .profile-form {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 1.5rem;
+  width: 100%;
 }
 
 .profile-section-card {
@@ -308,13 +331,14 @@
   border-radius: var(--radius-xl);
   padding: 1.75rem;
   box-shadow: var(--shadow-sm);
+  width: 100%;
 }
 
 .section-card-header {
   display: flex;
   align-items: flex-start;
   gap: 0.85rem;
-  margin-bottom: 1.35rem;
+  margin-bottom: 1.25rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #f1f5f9;
 }
@@ -349,6 +373,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.15rem;
+  width: 100%;
 }
 
 .full-width-field {
@@ -358,6 +383,7 @@
 .form-group-item {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .form-item-label {
@@ -379,6 +405,7 @@
   font-size: 0.88rem;
   color: var(--color-text-muted);
   font-weight: 600;
+  word-break: break-all;
 }
 
 /* Action Buttons */
@@ -388,6 +415,7 @@
   align-items: center;
   gap: 0.85rem;
   margin-top: 0.5rem;
+  width: 100%;
 }
 
 .btn-reset-profile {
@@ -416,25 +444,36 @@
   }
 }
 
-/* Responsive */
-@media (max-width: 760px) {
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .profile-nav-inner {
+    padding: 0.5rem 1rem;
+  }
+
+  .profile-main-container {
+    padding: 1.25rem 1rem 3rem;
+  }
+
   .profile-hero-card {
     flex-direction: column;
     text-align: center;
-    padding: 1.75rem 1.25rem;
+    padding: 1.65rem 1.25rem;
     gap: 1.25rem;
-  }
-
-  .profile-hero-details h1 {
-    font-size: 1.6rem;
+    border-radius: var(--radius-lg);
   }
 
   .hero-kicker-row {
     justify-content: center;
   }
 
+  .profile-section-card {
+    padding: 1.35rem 1.15rem;
+    border-radius: var(--radius-lg);
+  }
+
   .profile-grid-2col {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .full-width-field {
@@ -442,11 +481,30 @@
   }
 
   .profile-form-actions {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    gap: 0.75rem;
   }
 
   .profile-form-actions button {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-status-pill span {
+    display: none;
+  }
+
+  .profile-status-pill {
+    padding: 0.25rem 0.45rem;
+  }
+
+  .profile-nav-brand span {
+    display: none;
+  }
+
+  .profile-back-btn span {
+    display: none;
   }
 }

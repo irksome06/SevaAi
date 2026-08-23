@@ -410,6 +410,15 @@
 
 /* Responsive adjustments */
 @media (max-width: 540px) {
+  .auth-header-bar {
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .auth-card-container {
+    padding: 0.85rem 1rem;
+  }
+
   .auth-card {
     padding: 1.75rem 1.25rem;
     border-radius: var(--radius-lg);
@@ -423,5 +432,21 @@
     width: 42px;
     height: 50px;
     font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .auth-card {
+    padding: 1.35rem 0.85rem;
+  }
+
+  .otp-boxes-wrapper {
+    gap: 0.25rem;
+  }
+
+  .otp-box-input {
+    width: 36px;
+    height: 44px;
+    font-size: 1.15rem;
   }
 }
