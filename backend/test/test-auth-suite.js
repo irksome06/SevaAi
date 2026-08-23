@@ -180,6 +180,41 @@ async function runTestSuite() {
     });
     assert(reuseVerify.status === 410 || reuseVerify.status === 400, 'Used OTP is deleted and cannot be re-used');
 
+    console.log('\n--- Test Suite 6: Citizen Profile Updates & Avatar ---');
+    // Update profile details and avatar
+    const sampleAvatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+    const updateProfileRes = await apiRequest('/api/auth/profile', 'PUT', {
+      fullName: 'Priya Sundaram',
+      avatar: sampleAvatar,
+      gender: 'female',
+      dob: '1995-08-15',
+      occupation: 'Software Engineer',
+      location: {
+        state: 'Tamil Nadu',
+        city: 'Chennai',
+        district: 'Chennai',
+        pincode: '600001',
+        address: '123 Anna Salai',
+      },
+    }, validVerify.data.token);
+
+    assert(updateProfileRes.status === 200 && updateProfileRes.data.success === true, 'PUT /api/auth/profile updates citizen profile');
+    assert(updateProfileRes.data.user.fullName === 'Priya Sundaram', 'Profile updates full name');
+    assert(updateProfileRes.data.user.avatar === sampleAvatar, 'Profile saves base64 avatar image reference');
+    assert(updateProfileRes.data.user.location.state === 'Tamil Nadu', 'Profile saves state location');
+    assert(updateProfileRes.data.user.location.city === 'Chennai', 'Profile saves city location');
+    assert(updateProfileRes.data.user.location.pincode === '600001', 'Profile saves PIN code');
+
+    // Retrieve via GET /api/auth/me to verify database persistence
+    const getUpdatedMe = await apiRequest('/api/auth/me', 'GET', null, validVerify.data.token);
+    assert(getUpdatedMe.status === 200, 'GET /api/auth/me retrieves persisted updated profile');
+    assert(getUpdatedMe.data.user.avatar === sampleAvatar, 'Avatar persists in database and is returned on retrieval');
+    assert(getUpdatedMe.data.user.location.city === 'Chennai', 'Location persists in database');
+
+    // Test removing avatar
+    const removeAvatarRes = await apiRequest('/api/auth/profile', 'PUT', { avatar: '' }, validVerify.data.token);
+    assert(removeAvatarRes.status === 200 && removeAvatarRes.data.user.avatar === '', 'Removing avatar clears the avatar reference');
+
     console.log('\n====================================================');
     console.log(`  SUMMARY: ${passed} PASSED, ${failed} FAILED`);
     console.log('====================================================');

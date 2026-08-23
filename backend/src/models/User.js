@@ -55,6 +55,30 @@ const userSchema = new mongoose.Schema(
         'as', // Assamese
       ],
     },
+    avatar: {
+      type: String,
+      default: '',
+    },
+    location: {
+      state: { type: String, default: '' },
+      city: { type: String, default: '' },
+      district: { type: String, default: '' },
+      pincode: { type: String, default: '' },
+      address: { type: String, default: '' },
+    },
+    gender: {
+      type: String,
+      enum: ['male', 'female', 'other', 'prefer_not_to_say', ''],
+      default: '',
+    },
+    dob: {
+      type: String,
+      default: '',
+    },
+    occupation: {
+      type: String,
+      default: '',
+    },
     authProvider: {
       type: String,
       enum: ['local', 'phone'],

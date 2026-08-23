@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, ChevronRight, Sparkles } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export const ServiceCard = ({
@@ -15,10 +15,10 @@ export const ServiceCard = ({
 
   const cardContent = (
     <>
-      <div>
+      <div className="service-card-main-content">
         <div className="card-top-row">
           <div className={`card-module-icon ${iconColorClass}`}>
-            <Icon size={24} />
+            <Icon size={24} strokeWidth={2.2} />
           </div>
           {badgeText && <span className="module-pill-status">{badgeText}</span>}
         </div>
@@ -28,17 +28,27 @@ export const ServiceCard = ({
       </div>
 
       <div className="service-card-footer">
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-          <Sparkles size={14} color="var(--color-accent-saffron)" />
+        <span className="service-action-label">
           {actionText || t('comingSoon')}
         </span>
-        <ArrowRight size={16} />
+        <span className="service-action-arrow">
+          <ArrowRight size={16} />
+        </span>
       </div>
     </>
   );
 
   if (onClick) {
-    return <button type="button" className="service-module-card service-module-card-button" onClick={onClick}>{cardContent}</button>;
+    return (
+      <button
+        type="button"
+        className="service-module-card service-module-card-button"
+        onClick={onClick}
+        aria-label={`${title}: ${actionText || 'Open service'}`}
+      >
+        {cardContent}
+      </button>
+    );
   }
 
   return <div className="service-module-card">{cardContent}</div>;

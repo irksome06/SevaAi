@@ -138,6 +138,16 @@ export const authApi = {
       method: 'GET',
     });
   },
+
+  /**
+   * Update citizen profile details, location, and avatar
+   */
+  updateProfile: (profileData) => {
+    return request('/api/auth/profile', {
+      method: 'PUT',
+      body: JSON.stringify(profileData),
+    });
+  },
 };
 
 export const aiApi = {
@@ -177,3 +187,12 @@ export const schemeEligibilityApi = {
   recommendations: () => request('/api/schemes/recommendations'),
   start: (schemeId) => request(`/api/schemes/${encodeURIComponent(schemeId)}/start`, { method: 'POST' }),
 };
+
+/** Real-time Flash News & Circulars API */
+export const newsApi = {
+  getFlashNews: (category = 'all') => {
+    const query = category && category !== 'all' ? `?category=${encodeURIComponent(category)}` : '';
+    return request(`/api/news${query}`, { method: 'GET' });
+  },
+};
+

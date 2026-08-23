@@ -137,6 +137,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   /**
+   * Update citizen profile details
+   */
+  const updateProfile = async (profileData) => {
+    const response = await authApi.updateProfile(profileData);
+    if (response.success && response.user) {
+      setUser(response.user);
+      if (response.user.preferredLanguage) {
+        setLanguage(response.user.preferredLanguage);
+        localStorage.setItem('sevaai_lang', response.user.preferredLanguage);
+      }
+    }
+    return response;
+  };
+
+  /**
    * Translation helper hook
    */
   const t = useCallback(
@@ -160,6 +175,7 @@ export const AuthProvider = ({ children }) => {
     verifyPhoneOtpAndLogin,
     logout,
     changeLanguage,
+    updateProfile,
     refreshUser: checkAuth,
   };
 

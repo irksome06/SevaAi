@@ -22,12 +22,15 @@ export const LoginPage = () => {
 
   const validate = () => {
     const errors = {};
+    const input = formData.email.trim();
+    const cleanDigits = input.replace(/\D/g, '');
+    const isPhone = cleanDigits.length === 10 && /^[6-9]\d{9}$/.test(cleanDigits);
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (!formData.email.trim()) {
-      errors.email = `${t('emailLabel')} is required.`;
-    } else if (!emailRegex.test(formData.email.trim())) {
-      errors.email = 'Please enter a valid email address.';
+    if (!input) {
+      errors.email = `${t('emailLabel')} or Mobile Number is required.`;
+    } else if (!emailRegex.test(input) && !isPhone) {
+      errors.email = 'Please enter a valid email address or 10-digit mobile number.';
     }
 
     if (!formData.password) {
@@ -116,10 +119,10 @@ export const LoginPage = () => {
           )}
 
           <form onSubmit={handleSubmit} noValidate>
-            {/* Email Address */}
+            {/* Email / Mobile Address */}
             <div className="form-group">
               <label className="form-label" htmlFor="email-input">
-                {t('emailLabel')} <span className="req">*</span>
+                {t('emailLabel')} / Mobile Number <span className="req">*</span>
               </label>
               <div className="input-with-icon">
                 <span className="input-icon-left">
@@ -127,15 +130,15 @@ export const LoginPage = () => {
                 </span>
                 <input
                   id="email-input"
-                  type="email"
+                  type="text"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder={t('emailPlaceholder')}
+                  placeholder="name@domain.com or 10-digit mobile"
                   className={`form-control has-left-icon ${
                     fieldErrors.email ? 'is-invalid' : ''
                   }`}
-                  autoComplete="email"
+                  autoComplete="username"
                   disabled={loading}
                 />
               </div>

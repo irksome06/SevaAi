@@ -5,6 +5,7 @@ const aiRoutes = require('./routes/aiRoutes');
 const trackingRoutes = require('./routes/trackingRoutes');
 const quickAccessRoutes = require('./routes/quickAccessRoutes');
 const schemeEligibilityRoutes = require('./routes/schemeEligibilityRoutes');
+const newsRoutes = require('./routes/newsRoutes');
 
 const app = express();
 
@@ -44,8 +45,8 @@ app.use(
 );
 
 // Body parser middlewares
-app.use(express.json({ limit: '5mb' }));
-app.use(express.urlencoded({ extended: true, limit: '5mb' }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Request logging middleware in development
 if (process.env.NODE_ENV !== 'test') {
@@ -75,6 +76,7 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/tracking', trackingRoutes);
 app.use('/api/quick-access', quickAccessRoutes);
 app.use('/api/schemes', schemeEligibilityRoutes);
+app.use('/api/news', newsRoutes);
 
 // Catch 404 routes
 app.use((req, res) => {

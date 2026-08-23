@@ -1,5 +1,6 @@
 /* ==========================================================================
    SevaAI Authentication Styles (Login, Register, Phone OTP Flow)
+   GovTech Aesthetic: National Portal Trust Badge, High-contrast Inputs, OTP Grid
    ========================================================================== */
 
 .auth-wrapper {
@@ -7,7 +8,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1.5rem 1rem;
+  padding-bottom: 2rem;
 }
 
 /* Navbar / Top Branding */
@@ -17,50 +18,14 @@
   justify-content: space-between;
   max-width: 1200px;
   width: 100%;
-  margin: 0 auto 2rem auto;
-  padding: 0.75rem 1rem;
+  margin: 0 auto 1.5rem auto;
+  padding: 1rem 1.5rem;
 }
 
-.brand-logo-group {
+.auth-nav-actions {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  text-decoration: none;
-}
-
-.brand-emblem {
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  box-shadow: 0 4px 10px rgba(30, 58, 138, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.brand-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--color-primary);
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.brand-title span.saffron-dot {
-  color: var(--color-accent-saffron);
-}
-
-.brand-subtitle {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  gap: 0.75rem;
 }
 
 /* Main Auth Container */
@@ -69,22 +34,21 @@
   justify-content: center;
   align-items: center;
   flex: 1;
-  padding: 1rem 0;
+  padding: 1rem 1.5rem;
 }
 
 .auth-card {
   width: 100%;
-  max-width: 480px;
-  background: var(--color-bg-card-glass);
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
-  padding: 2.25rem;
+  padding: 2.5rem;
   position: relative;
   overflow: hidden;
-  transition: transform var(--transition-fast);
 }
 
 .auth-card::before {
@@ -103,15 +67,17 @@
 }
 
 .auth-card-header h2 {
-  font-size: 1.65rem;
-  font-weight: 700;
+  font-size: 1.7rem;
+  font-weight: 800;
   color: var(--color-text-main);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
+  letter-spacing: -0.02em;
 }
 
 .auth-card-header p {
   color: var(--color-text-muted);
   font-size: 0.92rem;
+  line-height: 1.45;
 }
 
 /* Tab Switcher (Email Login vs Phone OTP Login) */
@@ -131,12 +97,13 @@
   justify-content: center;
   gap: 0.45rem;
   padding: 0.65rem 0.75rem;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.88rem;
+  font-weight: 700;
   color: var(--color-text-muted);
   background: transparent;
   border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
+  cursor: pointer;
 }
 
 .auth-tab-btn.active {
@@ -151,59 +118,41 @@
 
 /* Alert Banners */
 .auth-alert {
-  padding: 0.85rem 1rem;
+  padding: 0.85rem 1.15rem;
   border-radius: var(--radius-md);
   font-size: 0.88rem;
   display: flex;
   align-items: flex-start;
-  gap: 0.65rem;
+  gap: 0.75rem;
   margin-bottom: 1.25rem;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .auth-alert-error {
   background-color: var(--color-danger-light);
-  border: 1px solid #fecaca;
+  border: 1px solid var(--color-danger-border);
   color: var(--color-danger);
 }
 
 .auth-alert-success {
   background-color: var(--color-emerald-light);
-  border: 1px solid #a7f3d0;
+  border: 1px solid var(--color-emerald-border);
   color: var(--color-emerald);
 }
 
 .auth-alert-info {
   background-color: var(--color-info-light);
-  border: 1px solid #bae6fd;
+  border: 1px solid var(--color-info-border);
   color: var(--color-info);
 }
 
 .auth-alert-dev {
-  background-color: #fffbeb;
-  border: 1px dashed #f59e0b;
+  background-color: var(--color-warning-light);
+  border: 1px dashed var(--color-warning);
   color: #b45309;
 }
 
 /* Form Groups & Inputs */
-.form-group {
-  margin-bottom: 1.25rem;
-  position: relative;
-}
-
-.form-label {
-  display: block;
-  font-size: 0.86rem;
-  font-weight: 600;
-  color: var(--color-text-main);
-  margin-bottom: 0.4rem;
-}
-
-.form-label span.req {
-  color: var(--color-danger);
-  margin-left: 0.2rem;
-}
-
 .input-with-icon {
   position: relative;
   display: flex;
@@ -227,40 +176,21 @@
   display: flex;
   align-items: center;
   background: transparent;
+  padding: 0.2rem;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast);
 }
 
-.form-control {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  font-size: 0.95rem;
+.input-icon-right:hover {
   color: var(--color-text-main);
-  background-color: #ffffff;
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
 }
 
 .form-control.has-left-icon {
-  padding-left: 2.65rem;
+  padding-left: 2.75rem;
 }
 
 .form-control.has-right-icon {
-  padding-right: 2.65rem;
-}
-
-.form-control:focus {
-  outline: none;
-  border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3.5px rgba(59, 130, 246, 0.12);
-}
-
-.form-control.is-invalid {
-  border-color: var(--color-danger);
-  background-color: #fffbfa;
-}
-
-.form-control.is-invalid:focus {
-  box-shadow: 0 0 0 3.5px rgba(220, 38, 38, 0.12);
+  padding-right: 2.75rem;
 }
 
 .field-error-text {
@@ -270,13 +200,13 @@
   color: var(--color-danger);
   font-size: 0.8rem;
   margin-top: 0.35rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .field-hint {
   color: var(--color-text-muted);
   font-size: 0.78rem;
-  margin-top: 0.3rem;
+  margin-top: 0.35rem;
 }
 
 /* Indian Phone Input Special Box */
@@ -291,11 +221,12 @@
 
 .phone-input-group:focus-within {
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3.5px rgba(59, 130, 246, 0.12);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .phone-input-group.is-invalid {
   border-color: var(--color-danger);
+  background-color: #fffbfa;
 }
 
 .phone-prefix-box {
@@ -322,6 +253,7 @@
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.05em;
+  background: transparent;
 }
 
 .phone-input-group input.phone-number-field:focus {
@@ -341,11 +273,11 @@
 }
 
 .otp-box-input {
-  width: 48px;
-  height: 56px;
+  width: 50px;
+  height: 58px;
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.55rem;
+  font-weight: 800;
   color: var(--color-primary);
   background-color: #ffffff;
   border: 2px solid var(--color-border);
@@ -356,13 +288,13 @@
 .otp-box-input:focus {
   outline: none;
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
   transform: translateY(-2px);
 }
 
 .otp-box-input.filled {
   border-color: var(--color-primary);
-  background-color: var(--color-primary-light);
+  background-color: #eff6ff;
 }
 
 .otp-box-input.is-invalid {
@@ -390,15 +322,18 @@
 .otp-resend-btn {
   background: transparent;
   color: var(--color-primary);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.88rem;
-  text-decoration: underline;
   padding: 0;
+  cursor: pointer;
+}
+
+.otp-resend-btn:hover {
+  text-decoration: underline;
 }
 
 .otp-resend-btn:disabled {
   color: var(--color-text-light);
-  text-decoration: none;
   cursor: not-allowed;
 }
 
@@ -408,7 +343,9 @@
   gap: 0.35rem;
   color: var(--color-text-muted);
   font-size: 0.85rem;
+  font-weight: 600;
   background: transparent;
+  cursor: pointer;
 }
 
 .change-phone-link:hover {
@@ -426,8 +363,8 @@
 }
 
 .auth-card-footer a {
-  font-weight: 600;
-  margin-left: 0.3rem;
+  font-weight: 700;
+  margin-left: 0.35rem;
 }
 
 /* Security Trust Badges */
@@ -439,6 +376,7 @@
   margin-top: 1.5rem;
   font-size: 0.78rem;
   color: var(--color-text-muted);
+  font-weight: 500;
 }
 
 .auth-trust-badge svg {
@@ -449,19 +387,19 @@
 .lang-selector-wrapper {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   background: #ffffff;
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-full);
   padding: 0.35rem 0.85rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
 }
 
 .lang-selector-wrapper select {
   border: none;
   background: transparent;
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text-main);
   outline: none;
   cursor: pointer;
@@ -474,9 +412,13 @@
     border-radius: var(--radius-lg);
   }
 
+  .auth-card-header h2 {
+    font-size: 1.45rem;
+  }
+
   .otp-box-input {
-    width: 40px;
-    height: 48px;
-    font-size: 1.25rem;
+    width: 42px;
+    height: 50px;
+    font-size: 1.3rem;
   }
 }

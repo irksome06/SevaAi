@@ -15,10 +15,15 @@ import {
   PhoneCall,
   Search,
   Sparkles,
+  Award,
+  ExternalLink,
+  Info
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import LanguageSelector, { LANGUAGES } from '../components/LanguageSelector';
 import ServiceCard from '../components/ServiceCard';
+import DashboardFlashcards from '../components/DashboardFlashcards';
+import '../styles/dashboard.css';
 
 export const DashboardPage = () => {
   const navigate = useNavigate();
@@ -30,7 +35,8 @@ export const DashboardPage = () => {
   };
 
   // Find native name of user's preferred language
-  const currentLangObj = LANGUAGES.find((l) => l.code === (user?.preferredLanguage || language)) || LANGUAGES[0];
+  const currentLangObj =
+    LANGUAGES.find((l) => l.code === (user?.preferredLanguage || language)) || LANGUAGES[0];
 
   const getInitials = (name) => {
     if (!name) return 'C';
@@ -42,7 +48,7 @@ export const DashboardPage = () => {
       .toUpperCase();
   };
 
-  // The 6 citizen service modules (AI assistant is now floating bottom-right widget)
+  // The 6 citizen service modules (preserves all tab names and routes)
   const serviceModules = [
     {
       id: 'civic-problem',
@@ -102,9 +108,10 @@ export const DashboardPage = () => {
 
   return (
     <div className="dashboard-layout">
+      <div className="gov-top-ribbon" />
       <div className="app-background-pattern" />
 
-      {/* Dashboard Top Navbar */}
+      {/* Official Dashboard Top Navbar */}
       <header className="dashboard-navbar">
         <div className="dashboard-nav-container">
           <div className="brand-logo-group">
@@ -122,8 +129,26 @@ export const DashboardPage = () => {
           <div className="nav-actions-group">
             <LanguageSelector />
 
-            <div className="user-profile-badge">
-              <div className="user-avatar">{getInitials(user?.fullName)}</div>
+            <div
+              className="user-profile-badge interactive-profile-badge"
+              onClick={() => navigate('/profile')}
+              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && navigate('/profile')}
+              tabIndex={0}
+              role="button"
+              aria-label="View citizen profile and account details"
+              title="Click to view and edit your citizen profile"
+            >
+              <div className="user-avatar">
+                {user?.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={user.fullName || 'Citizen Avatar'}
+                    className="user-avatar-img"
+                  />
+                ) : (
+                  getInitials(user?.fullName)
+                )}
+              </div>
               <div className="user-info-text">
                 <span className="user-name-label">{user?.fullName || 'Citizen User'}</span>
                 <span className="user-role-label">{t('verifiedCitizen')}</span>
@@ -133,9 +158,9 @@ export const DashboardPage = () => {
             <button
               type="button"
               onClick={handleLogout}
-              className="btn btn-danger-outline"
-              style={{ padding: '0.45rem 0.9rem', fontSize: '0.85rem' }}
+              className="btn btn-danger-outline btn-sm-logout"
               title={t('logout')}
+              aria-label={t('logout')}
             >
               <LogOut size={16} />
               <span>{t('logout')}</span>
@@ -149,7 +174,7 @@ export const DashboardPage = () => {
         {/* Welcome Hero Banner */}
         <section className="citizen-hero-banner">
           <div className="hero-pill-tag">
-            <Sparkles size={14} />
+            <Shield size={14} />
             {t('authSuccessTag')}
           </div>
           <h1 className="hero-title">
@@ -161,7 +186,7 @@ export const DashboardPage = () => {
         </section>
 
         {/* Citizen Profile Details Card */}
-        <section className="profile-overview-card">
+        <section className="profile-overview-card" aria-label="Citizen Profile Overview">
           <div className="profile-stat-item">
             <div className="stat-icon-wrapper stat-icon-blue">
               <User size={20} />
@@ -188,7 +213,9 @@ export const DashboardPage = () => {
             </div>
             <div className="stat-details">
               <span className="stat-label">{t('statLanguage')}</span>
-              <span className="stat-value">{currentLangObj.native} ({currentLangObj.label})</span>
+              <span className="stat-value">
+                {currentLangObj.native} ({currentLangObj.label})
+              </span>
             </div>
           </div>
 
@@ -205,8 +232,11 @@ export const DashboardPage = () => {
           </div>
         </section>
 
-        {/* Service Modules Grid */}
-        <section>
+        {/* Real-Time Government & Civic News Flashcards */}
+        <DashboardFlashcards />
+
+        {/* Service Modules Section */}
+        <section className="service-modules-section" aria-label="Available Citizen Services">
           <div className="section-header">
             <div>
               <h3>{t('serviceModulesTitle')}</h3>
@@ -237,7 +267,7 @@ export const DashboardPage = () => {
           <p>
             <strong>{t('footerTitle')}</strong>
           </p>
-          <p style={{ fontSize: '0.75rem', marginTop: '0.35rem', color: 'var(--color-text-light)' }}>
+          <p className="footer-subtext">
             {t('footerDesc')}
           </p>
         </div>

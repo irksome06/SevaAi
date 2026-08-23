@@ -6,6 +6,7 @@ const {
   sendOtp,
   verifyOtp,
   getMe,
+  updateProfile,
 } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
 
@@ -15,7 +16,9 @@ router.post('/login', login);
 router.post('/send-otp', sendOtp);
 router.post('/verify-otp', verifyOtp);
 
-// Protected Citizen Profile Endpoint
+// Protected Citizen Profile Endpoints
 router.get('/me', protect, getMe);
+router.put('/me', protect, updateProfile);
+router.put('/profile', protect, updateProfile);
 
 module.exports = router;

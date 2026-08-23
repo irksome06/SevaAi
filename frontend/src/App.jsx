@@ -13,6 +13,7 @@ import RtiGeneratorPage from './pages/RtiGeneratorPage';
 import ApplicationTrackerPage from './pages/ApplicationTrackerPage';
 import QuickAccessPage from './pages/QuickAccessPage';
 import SchemeEligibilityPage from './pages/SchemeEligibilityPage';
+import ProfilePage from './pages/ProfilePage';
 
 // Root route resolver
 const RootRoute = () => {
@@ -31,12 +32,20 @@ export const App = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/phone-login" element={<PhoneLoginPage />} />
           
-          {/* Protected Temporary SevaAI Dashboard */}
+          {/* Protected SevaAI Citizen Portal Routes */}
           <Route
             path="/dashboard"
             element={
               <ProtectedRoute>
                 <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
               </ProtectedRoute>
             }
           />

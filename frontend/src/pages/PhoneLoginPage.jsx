@@ -241,12 +241,6 @@ export const PhoneLoginPage = () => {
             /* STEP 2: 6-Digit OTP Verification Screen */
             <div>
               <div className="otp-container">
-                {mockOtp && (
-                  <div className="auth-alert auth-alert-info" role="status">
-                    <ShieldCheck size={18} style={{ flexShrink: 0 }} />
-                    <div><strong>Mock OTP:</strong> {mockOtp}</div>
-                  </div>
-                )}
                 <OtpInput
                   value={otpCode}
                   onChange={(val) => {

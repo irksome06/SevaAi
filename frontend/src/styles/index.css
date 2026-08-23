@@ -1,59 +1,82 @@
 /* ==========================================================================
-   SevaAI Design System & Global Styles
-   Civic Trust Palette: Deep Navy, Saffron Accent, Emerald Success, Clean Slate
+   SevaAI Design System & Global GovTech Styles
+   Official Citizen Trust Palette: Deep Civic Navy, Warm Saffron, Emerald Verification, Slate Canvas
    ========================================================================== */
 
 :root {
-  /* Brand Primary & Accents */
-  --color-primary: #1e3a8a;          /* Deep Bharat/Civic Navy */
-  --color-primary-hover: #1e40af;
+  /* Brand Primary & Civic Navy */
+  --color-primary: #1e3a8a;          /* Deep Civic Navy */
+  --color-primary-hover: #172554;
   --color-primary-light: #eff6ff;
+  --color-primary-soft: #dbeafe;
+  --color-navy-dark: #0a192f;
+  --color-navy-header: #0f233a;
+
+  /* Accents & Trust Elements */
   --color-accent-saffron: #d97706;   /* Saffron Accent */
+  --color-accent-saffron-hover: #b45309;
   --color-accent-saffron-light: #fffbeb;
+  --color-accent-saffron-border: #fde68a;
+
   --color-emerald: #059669;          /* Emerald Verification */
+  --color-emerald-hover: #047857;
   --color-emerald-light: #ecfdf5;
-  
-  /* Neutral Dark / Text */
+  --color-emerald-border: #a7f3d0;
+
+  /* Neutral Dark / Text Hierarchy */
   --color-text-main: #0f172a;        /* Slate 900 */
+  --color-text-body: #334155;        /* Slate 700 */
   --color-text-muted: #64748b;       /* Slate 500 */
   --color-text-light: #94a3b8;       /* Slate 400 */
-  
+
   /* Backgrounds & Surfaces */
   --color-bg-app: #f8fafc;           /* Light Slate Canvas */
   --color-bg-card: #ffffff;
-  --color-bg-card-glass: rgba(255, 255, 255, 0.88);
+  --color-bg-card-glass: rgba(255, 255, 255, 0.94);
+  --color-bg-subtle: #f1f5f9;
   --color-border: #e2e8f0;           /* Slate 200 */
-  --color-border-focus: #3b82f6;     /* Blue 500 */
-  
+  --color-border-hover: #cbd5e1;     /* Slate 300 */
+  --color-border-focus: #2563eb;     /* Blue 600 */
+
   /* State Colors */
   --color-danger: #dc2626;           /* Red 600 */
   --color-danger-light: #fef2f2;
-  --color-warning: #d97706;
+  --color-danger-border: #fecaca;
+
+  --color-warning: #d97706;          /* Amber 600 */
   --color-warning-light: #fffbeb;
-  --color-info: #0284c7;
+  --color-warning-border: #fde68a;
+
+  --color-info: #0284c7;             /* Sky 600 */
   --color-info-light: #f0f9ff;
-  
+  --color-info-border: #bae6fd;
+
+  --color-purple: #7c3aed;
+  --color-purple-light: #f5f3ff;
+  --color-purple-border: #ddd6fe;
+
   /* Typography */
   --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
-  /* Shadows & Elevations */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.05);
-  --shadow-glow: 0 0 20px rgba(30, 58, 138, 0.15);
-  
+
+  /* Shadows & Elevations (Restrained, subtle) */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.03);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.09), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+
   /* Border Radius */
+  --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
   --radius-full: 9999px;
-  
+
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 220ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* CSS Reset & Box Sizing */
@@ -70,7 +93,8 @@ html, body {
   background-color: var(--color-bg-app);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
 }
 
 /* Base Headings */
@@ -79,6 +103,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-text-main);
   font-weight: 700;
   line-height: 1.25;
+  letter-spacing: -0.015em;
 }
 
 a {
@@ -96,11 +121,26 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
+  background: none;
 }
 
 input, select, textarea {
   font-family: var(--font-body);
   font-size: 0.95rem;
+  color: var(--color-text-main);
+}
+
+/* Accessibility Focus States */
+:focus-visible {
+  outline: 2.5px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* GovTech National Header Ribbon */
+.gov-top-ribbon {
+  height: 4px;
+  background: linear-gradient(90deg, #ea580c 0%, #1e3a8a 50%, #059669 100%);
+  width: 100%;
 }
 
 /* Background Atmosphere Pattern */
@@ -108,18 +148,18 @@ input, select, textarea {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: 
-    radial-gradient(circle at 10% 10%, rgba(30, 58, 138, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 90% 90%, rgba(217, 119, 6, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(5, 150, 105, 0.03) 0%, transparent 50%),
+  background:
+    radial-gradient(circle at 10% 10%, rgba(30, 58, 138, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(217, 119, 6, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(5, 150, 105, 0.02) 0%, transparent 50%),
     #f8fafc;
   pointer-events: none;
 }
 
-/* Common Utility Classes */
+/* Common Layout Utilities */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -130,29 +170,33 @@ input, select, textarea {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.95rem;
+  padding: 0.7rem 1.35rem;
+  font-size: 0.92rem;
   font-weight: 600;
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   text-align: center;
+  border: 1px solid transparent;
+  line-height: 1.35;
 }
 
 .btn:disabled {
-  opacity: 0.65;
+  opacity: 0.6;
   cursor: not-allowed;
   transform: none !important;
+  box-shadow: none !important;
 }
 
 .btn-primary {
   background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+  border: 1px solid #1e3a8a;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover:not(:disabled) {
   background: linear-gradient(135deg, #172554 0%, #1e3a8a 100%);
-  box-shadow: 0 6px 16px rgba(30, 58, 138, 0.35);
+  box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
 
@@ -160,6 +204,7 @@ input, select, textarea {
   background: #ffffff;
   color: var(--color-text-main);
   border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-xs);
 }
 
 .btn-secondary:hover:not(:disabled) {
@@ -168,10 +213,21 @@ input, select, textarea {
   color: var(--color-primary);
 }
 
-.btn-danger-outline {
+.btn-outline {
   background: transparent;
+  color: var(--color-primary);
+  border: 1px solid #bfdbfe;
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+}
+
+.btn-danger-outline {
+  background: #ffffff;
   color: var(--color-danger);
-  border: 1px solid #fecaca;
+  border: 1px solid var(--color-danger-border);
 }
 
 .btn-danger-outline:hover:not(:disabled) {
@@ -185,12 +241,13 @@ input, select, textarea {
 
 /* Spinner */
 .spinner {
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 2px solid rgba(255, 255, 255, 0.35);
   border-top-color: #ffffff;
   border-radius: 50%;
-  animation: spin 0.75s linear infinite;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
 }
 
 .spinner-dark {
@@ -201,5 +258,75 @@ input, select, textarea {
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Standard GovTech Form Input */
+.form-group {
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.4rem;
+}
+
+.form-label span.req {
+  color: var(--color-danger);
+  margin-left: 0.2rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 0.95rem;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  background-color: #ffffff;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form-control.is-invalid {
+  border-color: var(--color-danger);
+  background-color: #fffbfa;
+}
+
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
+/* Standard GovTech Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  line-height: 1.3;
+}
+
+.badge-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.badge-emerald { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+.badge-amber { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+.badge-purple { background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }
+.badge-neutral { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+
+/* Print Utilities */
+@media print {
+  .print-hide {
+    display: none !important;
   }
 }

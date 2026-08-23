@@ -8,23 +8,26 @@ export const AuthNavbar = () => {
   const { t } = useAuth();
 
   return (
-    <header className="auth-header-bar">
-      <Link to="/" className="brand-logo-group">
-        <div className="brand-emblem">
-          <Shield size={24} strokeWidth={2.4} />
-        </div>
-        <div>
-          <div className="brand-title">
-            {t('brandTitle')}<span className="saffron-dot">.</span>
+    <>
+      <div className="gov-top-ribbon" />
+      <header className="auth-header-bar">
+        <Link to="/" className="brand-logo-group" aria-label="SevaAI Home">
+          <div className="brand-emblem">
+            <Shield size={22} strokeWidth={2.4} />
           </div>
-          <div className="brand-subtitle">{t('brandSubtitle')}</div>
-        </div>
-      </Link>
+          <div>
+            <div className="brand-title">
+              {t('brandTitle')}<span className="saffron-dot">.</span>
+            </div>
+            <div className="brand-subtitle">{t('brandSubtitle')}</div>
+          </div>
+        </Link>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-        <LanguageSelector />
-      </div>
-    </header>
+        <div className="auth-nav-actions">
+          <LanguageSelector />
+        </div>
+      </header>
+    </>
   );
 };
 

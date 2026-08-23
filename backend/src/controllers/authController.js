@@ -121,19 +121,30 @@ const login = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide email and password.',
+        message: 'Please provide your email/mobile number and password.',
       });
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
+    const input = email.trim();
+    const cleanPhoneDigits = input.replace(/\D/g, '');
+    let query;
+
+    // Check if input is a 10-digit Indian mobile number
+    if (cleanPhoneDigits.length === 10 && /^[6-9]\d{9}$/.test(cleanPhoneDigits)) {
+      query = { phone: `+91${cleanPhoneDigits}` };
+    } else if (cleanPhoneDigits.length === 12 && cleanPhoneDigits.startsWith('91')) {
+      query = { phone: `+${cleanPhoneDigits}` };
+    } else {
+      query = { email: input.toLowerCase() };
+    }
 
     // Query user and explicitly select password field (since select: false in schema)
-    const user = await User.findOne({ email: normalizedEmail }).select('+password');
+    const user = await User.findOne(query).select('+password');
 
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: 'Invalid email or password. Please check your credentials.',
+        message: 'Invalid credentials. Please check your email/mobile number and password.',
       });
     }
 
@@ -291,10 +302,153 @@ const getMe = async (req, res) => {
   }
 };
 
+/**
+ * @desc    Update authenticated citizen profile details and avatar
+ * @route   PUT /api/auth/profile or PUT /api/auth/me
+ * @access  Protected (Bearer token)
+ */
+const updateProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'Citizen profile not found.',
+      });
+    }
+
+    const {
+      fullName,
+      email,
+      phone,
+      avatar,
+      location,
+      gender,
+      dob,
+      occupation,
+      preferredLanguage,
+    } = req.body;
+
+    // Full name validation
+    if (fullName !== undefined) {
+      if (typeof fullName !== 'string' || fullName.trim().length < 2) {
+        return res.status(400).json({
+          success: false,
+          message: 'Full name must be at least 2 characters long.',
+        });
+      }
+      user.fullName = fullName.trim();
+    }
+
+    // Email validation & duplicate check
+    if (email !== undefined) {
+      const normalizedEmail = email ? email.trim().toLowerCase() : '';
+      if (normalizedEmail) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(normalizedEmail)) {
+          return res.status(400).json({
+            success: false,
+            message: 'Please provide a valid email address.',
+          });
+        }
+        // Check uniqueness if email is changing
+        if (normalizedEmail !== user.email) {
+          const emailExists = await User.findOne({
+            email: normalizedEmail,
+            _id: { $ne: user._id },
+          });
+          if (emailExists) {
+            return res.status(400).json({
+              success: false,
+              message: 'This email address is already in use by another account.',
+            });
+          }
+          user.email = normalizedEmail;
+        }
+      } else if (user.authProvider === 'phone') {
+        // Phone users can leave email empty
+        user.email = undefined;
+      }
+    }
+
+    // Phone validation & duplicate check
+    if (phone !== undefined) {
+      const formattedPhone = phone ? otpService.formatIndianPhone(phone) : '';
+      if (formattedPhone) {
+        if (formattedPhone !== user.phone) {
+          const phoneExists = await User.findOne({
+            phone: formattedPhone,
+            _id: { $ne: user._id },
+          });
+          if (phoneExists) {
+            return res.status(400).json({
+              success: false,
+              message: 'This mobile number is already registered to another citizen account.',
+            });
+          }
+          user.phone = formattedPhone;
+        }
+      }
+    }
+
+    // Profile Avatar (Base64 or URL or empty string to remove)
+    if (avatar !== undefined) {
+      user.avatar = typeof avatar === 'string' ? avatar : '';
+    }
+
+    // Location fields
+    if (location && typeof location === 'object') {
+      user.location = {
+        state: location.state !== undefined ? String(location.state).trim() : user.location?.state || '',
+        city: location.city !== undefined ? String(location.city).trim() : user.location?.city || '',
+        district: location.district !== undefined ? String(location.district).trim() : user.location?.district || '',
+        pincode: location.pincode !== undefined ? String(location.pincode).trim() : user.location?.pincode || '',
+        address: location.address !== undefined ? String(location.address).trim() : user.location?.address || '',
+      };
+    }
+
+    // Gender
+    if (gender !== undefined) {
+      user.gender = gender;
+    }
+
+    // Date of Birth
+    if (dob !== undefined) {
+      user.dob = String(dob).trim();
+    }
+
+    // Occupation
+    if (occupation !== undefined) {
+      user.occupation = String(occupation).trim();
+    }
+
+    // Preferred Language
+    if (preferredLanguage !== undefined) {
+      user.preferredLanguage = preferredLanguage;
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Citizen profile updated successfully.',
+      user,
+    });
+  } catch (error) {
+    console.error('[UpdateProfile] Error:', error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || 'Server error while updating profile.',
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   register,
   login,
   sendOtp,
   verifyOtp,
   getMe,
+  updateProfile,
 };

@@ -1,1 +1,385 @@
-.rti-page { min-height: 100vh; background: #f7f8fa; color: #191c1e; }.rti-header { position: sticky; top: 0; z-index: 10; min-height: 64px; padding: .7rem 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid #c9ccd5; background: rgba(247,248,250,.96); }.rti-header button { display: inline-flex; align-items: center; gap: .4rem; border: 0; color: #003fb1; background: transparent; font: inherit; font-weight: 700; cursor: pointer; }.rti-header div { text-align: center; }.rti-header strong, .rti-header span { display: block; }.rti-header strong { color: #003fb1; }.rti-header span { color: #626571; font-size: .78rem; }.rti-main { max-width: 900px; margin: auto; padding: 3rem 1.25rem 4rem; }.rti-intro { max-width: 650px; margin: 0 auto 2rem; text-align: center; }.rti-intro p { margin: 0 0 .6rem; color: #003fb1; font-weight: 800; letter-spacing: .1em; font-size: .75rem; }.rti-intro h1 { margin: 0 0 .6rem; font-size: clamp(1.8rem, 4vw, 2.3rem); }.rti-intro span { color: #626571; line-height: 1.5; }.rti-editor { padding: 1.3rem; margin-bottom: 1.5rem; border: 1px solid #c9ccd5; border-radius: 10px; background: #fff; }.rti-editor h2 { margin: 0; font-size: 1.05rem; }.rti-editor p { margin: .35rem 0 1rem; color: #626571; font-size: .87rem; }.rti-field-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; }.rti-field-grid label { display: grid; gap: .35rem; color: #434654; font-size: .82rem; font-weight: 700; }.rti-field-grid input { padding: .65rem; border: 1px solid #aeb2bf; border-radius: 6px; font: inherit; }.rti-paper { overflow: hidden; border: 1px solid #c9ccd5; background: #fff; box-shadow: 0 10px 30px rgba(25,28,30,.06); }.rti-paper-bar { padding: .75rem 1rem; display: flex; justify-content: space-between; background: #edeef0; border-bottom: 1px solid #c9ccd5; color: #626571; font-size: .75rem; }.rti-paper-bar span { display: inline-flex; align-items: center; gap: .35rem; }.rti-paper pre { margin: 0; padding: clamp(1.5rem, 6vw, 4rem); white-space: pre-wrap; font: 400 1rem/1.65 Georgia, serif; }.rti-actions { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }.rti-actions > div { display: flex; flex-wrap: wrap; gap: .6rem; }.rti-actions button { display: inline-flex; align-items: center; gap: .4rem; padding: .65rem .8rem; border: 1px solid #aeb2bf; border-radius: 7px; color: #003fb1; background: #fff; font: inherit; font-size: .88rem; font-weight: 700; cursor: pointer; }.rti-actions .rti-primary { color: #fff; border-color: #003fb1; background: #003fb1; }.rti-notice { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); padding: .7rem 1rem; border-radius: 999px; color: #fff; background: #191c1e; font-size: .85rem; font-weight: 700; }@media (max-width: 640px) { .rti-header > span { display: none; }.rti-main { padding: 2rem 1rem 3rem; }.rti-field-grid { grid-template-columns: 1fr; }.rti-actions { flex-direction: column; }.rti-actions .rti-primary { justify-content: center; }.rti-paper pre { font-size: .9rem; } }@media print { .print-hide { display: none !important; }.rti-page { background: #fff; }.rti-main { padding: 0; }.rti-paper { border: 0; box-shadow: none; }.rti-paper-bar { display: none; } }
+/* ==========================================================================
+   SevaAI RTI Generator Styles
+   GovTech Aesthetic: Official Form-A Document, Authentic Stationery Look, Print Styles
+   ========================================================================== */
+
+.rti-page {
+  min-height: 100vh;
+  color: var(--color-text-main);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.rti-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  min-height: 68px;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.rti-header button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--color-primary);
+  background: transparent;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.rti-header button:hover {
+  background: var(--color-primary-light);
+}
+
+.rti-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.rti-emblem {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rti-header-brand strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+.rti-header-brand span {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.rti-step-badge {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: #f1f5f9;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+}
+
+/* Main Workspace */
+.rti-main {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.25rem 1.5rem 4.5rem;
+  flex: 1;
+}
+
+.rti-intro {
+  max-width: 720px;
+  margin: 0 auto 1.75rem;
+  text-align: center;
+}
+
+.rti-kicker {
+  margin: 0 0 0.5rem;
+  color: var(--color-primary);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.rti-intro h1 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.8rem, 4vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text-main);
+}
+
+.rti-intro span {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  display: block;
+}
+
+/* Editor Form Card */
+.rti-editor {
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.rti-editor-header {
+  margin-bottom: 1.35rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.rti-editor-header h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.2rem;
+}
+
+.rti-editor-header p {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.rti-field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.rti-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.rti-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.35rem;
+}
+
+/* Authentic Paper Document Preview */
+.rti-paper {
+  overflow: hidden;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: #ffffff;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.rti-paper-bar {
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  border-bottom: 1.5px solid var(--color-border);
+  font-size: 0.78rem;
+}
+
+.rti-rule-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.rti-draft-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #ecfdf5;
+  color: #047857;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  border: 1px solid #a7f3d0;
+}
+
+.rti-paper pre {
+  margin: 0;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  white-space: pre-wrap;
+  font-family: 'Georgia', 'Cambria', serif;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: #1e293b;
+  background: #ffffff;
+}
+
+/* Actions Toolbar */
+.rti-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.rti-action-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.rti-print-btn {
+  background: #ffffff;
+  border: 1.5px solid var(--color-border);
+}
+
+/* Minimal Bottom Apply Box */
+.rti-bottom-apply-box {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.25rem 1.6rem;
+  background: #ffffff;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.rti-bottom-apply-box:hover {
+  border-color: #cbd5e1;
+  box-shadow: var(--shadow-md);
+}
+
+.bottom-apply-text strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.bottom-apply-text p {
+  margin: 0.2rem 0 0;
+  font-size: 0.86rem;
+  color: var(--color-text-muted);
+}
+
+.rti-apply-now-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.35rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+  background: var(--color-primary);
+  color: #ffffff;
+  transition: all var(--transition-fast);
+}
+
+.rti-apply-now-btn:hover {
+  background: var(--color-primary-hover);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Floating Notice Toast */
+.rti-notice {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.75rem 1.35rem;
+  border-radius: var(--radius-full);
+  color: #ffffff;
+  background: #0f172a;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 100;
+  animation: toast-in 200ms ease;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 820px) {
+  .rti-field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rti-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .rti-action-btn-group {
+    flex-direction: column;
+  }
+
+  .rti-action-btn-group button,
+  .rti-print-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rti-bottom-apply-box {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .rti-apply-now-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media print {
+  .print-hide {
+    display: none !important;
+  }
+  .rti-page {
+    background: #ffffff;
+  }
+  .rti-main {
+    padding: 0;
+    max-width: 100%;
+  }
+  .rti-paper {
+    border: 0;
+    box-shadow: none;
+  }
+  .rti-paper pre {
+    padding: 0;
+    font-size: 11pt;
+    line-height: 1.6;
+  }
+}
