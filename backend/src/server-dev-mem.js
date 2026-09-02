@@ -17,48 +17,8 @@ async function startDevServerWithMemoryMongo() {
     await mongoose.connect(uri);
     console.log(`[MongoDB] Connected to in-memory database at: ${uri}`);
     
-    // Seed default demo citizen accounts for development & testing
-    const User = require('./models/User');
-    const demoAccounts = [
-      {
-        fullName: 'Aarav Sharma',
-        email: 'citizen@sevaai.gov.in',
-        phone: '+919876543210',
-        password: 'Password123!',
-        preferredLanguage: 'en',
-        isVerified: true,
-        location: {
-          state: 'Maharashtra',
-          city: 'Mumbai',
-          district: 'Mumbai City',
-          pincode: '400001',
-          address: 'Flat 402, Samruddhi Apts, Nariman Point',
-        },
-      },
-      {
-        fullName: 'Priya Patel',
-        email: 'demo@sevaai.gov.in',
-        phone: '+919812345678',
-        password: 'Password123!',
-        preferredLanguage: 'hi',
-        isVerified: true,
-        location: {
-          state: 'Gujarat',
-          city: 'Ahmedabad',
-          district: 'Ahmedabad',
-          pincode: '380001',
-          address: '14 Gandhi Ashram Marg',
-        },
-      },
-    ];
-
-    for (const acc of demoAccounts) {
-      const exists = await User.findOne({ email: acc.email });
-      if (!exists) {
-        await User.create(acc);
-      }
-    }
-    console.log('[MongoDB] Seeded default citizen demo accounts (citizen@sevaai.gov.in / Password123!)');
+    // No saved/seeded user accounts — clean database state
+    console.log('[MongoDB] Database ready (clean state, no seeded accounts)');
     console.log('====================================================');
 
     const server = app.listen(PORT, () => {

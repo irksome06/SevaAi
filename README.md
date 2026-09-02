@@ -242,10 +242,7 @@ cd SevaAi/SevaAi-1
 3. **Start the server:**
 
    **🌟 Recommended for Hackathon Evaluation (Zero-Config In-Memory DB):**
-   ```bash
-   npm run dev:mem
-   ```
-   > *Starts an embedded in-memory MongoDB instance automatically and pre-seeds a demo citizen account (`citizen@sevaai.gov.in` / `Password123!`, Phone: `+919876543210`) and sample tracking records.*
+   > *Starts an embedded in-memory MongoDB instance automatically in a clean state.*
 
    **Or with Local/Cloud MongoDB:**
    ```bash
